@@ -30,6 +30,8 @@ import ClearPermissionsHistory from './clear-permissions-history'
 import ConfirmCustomizeGasModal from '../gas-customization/gas-modal-page-container'
 import ConfirmDeleteNetwork from './confirm-delete-network'
 import AddToAddressBookModal from './add-to-addressbook-modal'
+import NewAccountModal from './new-account-modal'
+import DisconnectAccount from './disconnect-account'
 
 const modalContainerBaseStyle = {
   transform: 'translate3d(-50%, 0, 0px)',
@@ -118,6 +120,64 @@ const MODALS = {
   ADD_TO_ADDRESSBOOK: {
     contents: [
       h(AddToAddressBookModal, {}, []),
+    ],
+    mobileModalStyle: {
+      width: '95%',
+      top: '10%',
+      boxShadow: 'rgba(0, 0, 0, 0.15) 0px 2px 2px 2px',
+      transform: 'none',
+      left: '0',
+      right: '0',
+      margin: '0 auto',
+      borderRadius: '10px',
+    },
+    laptopModalStyle: {
+      width: '375px',
+      top: '10%',
+      boxShadow: 'rgba(0, 0, 0, 0.15) 0px 2px 2px 2px',
+      transform: 'none',
+      left: '0',
+      right: '0',
+      margin: '0 auto',
+      borderRadius: '10px',
+    },
+    contentStyle: {
+      borderRadius: '10px',
+    },
+  },
+
+  NEW_ACCOUNT: {
+    contents: [
+      h(NewAccountModal, {}, []),
+    ],
+    mobileModalStyle: {
+      width: '95%',
+      top: '10%',
+      boxShadow: 'rgba(0, 0, 0, 0.15) 0px 2px 2px 2px',
+      transform: 'none',
+      left: '0',
+      right: '0',
+      margin: '0 auto',
+      borderRadius: '10px',
+    },
+    laptopModalStyle: {
+      width: '375px',
+      top: '10%',
+      boxShadow: 'rgba(0, 0, 0, 0.15) 0px 2px 2px 2px',
+      transform: 'none',
+      left: '0',
+      right: '0',
+      margin: '0 auto',
+      borderRadius: '10px',
+    },
+    contentStyle: {
+      borderRadius: '10px',
+    },
+  },
+
+  DISCONNECT_ACCOUNT: {
+    contents: [
+      h(DisconnectAccount, {}, []),
     ],
     mobileModalStyle: {
       width: '95%',
