@@ -380,7 +380,7 @@ function createTasksForBuildJsDeps ({ key, filename }) {
   const bundleTaskOpts = Object.assign({
     buildSourceMaps: true,
     sourceMapDir: '../sourcemaps',
-    minifyBuild: true,
+    minifyBuild: false,
     devMode: false,
   })
 
@@ -404,7 +404,7 @@ function createTasksForBuildJsExtension ({ buildJsFiles, taskPrefix, devMode, te
   bundleTaskOpts = Object.assign({
     buildSourceMaps: true,
     sourceMapDir: '../sourcemaps',
-    minifyBuild: !devMode,
+    minifyBuild: false,
     buildWithFullPaths: devMode,
     watch: devMode,
     devMode,

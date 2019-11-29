@@ -100,7 +100,7 @@ function getAccountType (state) {
 
 function getSelectedAsset (state) {
   const selectedToken = getSelectedToken(state)
-  return selectedToken && selectedToken.symbol || 'ETH'
+  return selectedToken && selectedToken.symbol || 'GAS'
 }
 
 function getCurrentNetworkId (state) {
@@ -325,9 +325,10 @@ function isEthereumNetwork (state) {
     RINKEBY,
     ROPSTEN,
     GOERLI,
+    ITRUST
   } = NETWORK_TYPES
 
-  return [ KOVAN, MAINNET, RINKEBY, ROPSTEN, GOERLI].includes(networkType)
+  return [ KOVAN, MAINNET, RINKEBY, ROPSTEN, GOERLI, ITRUST].includes(networkType)
 }
 
 function preferencesSelector ({ metamask }) {

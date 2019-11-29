@@ -93,11 +93,11 @@
     "message": "数量"
   },
   "appDescription": {
-    "message": "以太坊浏览器插件",
+    "message": "信安链浏览器插件",
     "description": "The description of the application"
   },
   "appName": {
-    "message": "MetaMask",
+    "message": "信安客户端",
     "description": "The name of the application"
   },
   "approve": {
@@ -137,10 +137,10 @@
     "message": "恢复所有设置"
   },
   "backupApprovalNotice": {
-    "message": "请备份您的私密恢复代码，保证个人钱包和资金安全。"
+    "message": "请备份您的私密恢复代码，保证账号安全。"
   },
   "backupApprovalInfo": {
-    "message": "如果不慎丢失个人设备，忘记密码，或者需要重新安装 MetaMask，亦或是需在另一台设备上打开钱包，请使用该保密码恢复个人钱包数据。"
+    "message": "如果不慎丢失个人设备，忘记密码，或者需要重新安装 iTrust Wallet，亦或是需在另一台设备上打开钱包，请使用该保密码恢复个人钱包数据。"
   },
   "backupNow": {
     "message": "立即备份"
@@ -211,7 +211,7 @@
     "message": "取消操作"
   },
   "cancellationGasFee": {
-    "message": "取消天然气费"
+    "message": "取消 GAS 费用"
   },
   "cancelled": {
     "message": "已取消"
@@ -229,7 +229,7 @@
     "message": "关闭"
   },
   "chromeRequiredForHardwareWallets": {
-    "message": "您需要通过 Google Chrome 浏览器使用 MetaMask ，连接个人硬件钱包。"
+    "message": "您需要通过 Google Chrome 浏览器使用 iTrust Wallet ，连接个人硬件钱包。"
   },
   "confirm": {
     "message": "确认"
@@ -276,6 +276,9 @@
   "connectingToGoerli": {
     "message": "正在连接 Goerli 测试网络"
   },
+  "connectingToITrust": {
+    "message": "正在连接 iTrust 主网"
+  },  
   "continueToWyre": {
     "message": "继续前往 Wyre"
   },
@@ -352,7 +355,7 @@
     "message": "精确小数点"
   },
   "defaultNetwork": {
-    "message": "默认以太坊交易网络为主网。"
+    "message": "默认 iTrust 网络为主网。"
   },
   "delete": {
     "message": "删除"
@@ -364,13 +367,13 @@
     "message": "存入"
   },
   "depositEther": {
-    "message": "存入 Ether"
+    "message": "存入 GAS"
   },
   "details": {
     "message": "详情"
   },
   "directDepositEther": {
-    "message": "直接存入 Ether"
+    "message": "直接存入 GAS"
   },
   "directDepositEtherExplainer": {
     "message": "如果你已经有了一些 Ether，通过直接转入是你的新钱包获取 Ether 的最快捷方式。"
@@ -703,13 +706,13 @@
     "message": "消息"
   },
   "metamaskDescription": {
-    "message": "MetaMask is a secure identity vault for Ethereum."
+    "message": "您可以通过本客户端操作您的信安链账号"
   },
   "metamaskSeedWords": {
     "message": "MetaMask 助记词"
   },
   "metamaskVersion": {
-    "message": "MetaMask 版本"
+    "message": "信安链客户端版本"
   },
   "missingYourTokens": {
     "message": "无法看到您的代币？"
@@ -768,7 +771,7 @@
     "message": "新增网络"
   },
   "newToMetaMask": {
-    "message": "新增至 MetaMask？"
+    "message": "尚未拥有信安链账号？"
   },
   "noAlreadyHaveSeed": {
     "message": "不，我已经有一个种子密语了。"
@@ -985,6 +988,9 @@
   "goerli": {
     "message": "Goerli 测试网络"
   },
+  "itrust": {
+    "message": "信安链网络"
+  },
   "save": {
     "message": "保存"
   },
@@ -1016,7 +1022,7 @@
     "message": "您的个人私密备份密语可以帮助您轻松备份和恢复个人账户。"
   },
   "secretBackupPhraseWarning": {
-    "message": "警告：切勿向他人透露您的备份密语。任何人一旦持有该密语，即可取走您的以太币。"
+    "message": "警告：切勿向他人透露您的备份密语。任何人一旦持有该密语，即可控制您的账号。"
   },
   "secretPhrase": {
     "message": "输入12位助记词以恢复金库."
@@ -1052,13 +1058,13 @@
     "message": "发送金额"
   },
   "sendETH": {
-    "message": "发送 ETH"
+    "message": "发送"
   },
   "sendTokens": {
     "message": "发送 代币"
   },
   "sentEther": {
-    "message": "以太币已发送"
+    "message": "发送 GAS"
   },
   "sentTokens": {
     "message": "代币已发送"
@@ -1163,7 +1169,7 @@
     "message": "3. 开始体验 dApps 和更多功能！"
   },
   "step3HardwareWalletMsg": {
-    "message": "使用您的硬件钱包，操作与以太坊账户制作相同。登录 dApps，发送 ETH ，购买和保存 ERC20 代币和诸如 CryptoKitties 等不可替代代币。"
+    "message": "使用您的硬件钱包以操作信安链账号"
   },
   "storePhrase": {
     "message": "通过如 1Password 等密码管家保存该密语。"
@@ -1190,19 +1196,19 @@
     "message": "使用移动设备进行同步"
   },
   "syncWithMobileDesc": {
-    "message": "您可以使用个人移动设备同步个人账户与信息。打开 MetaMask 移动应用程序，进入“设置”选项，点击“通过浏览器扩展程序同步”"
+    "message": "您可以使用个人移动设备同步个人账户与信息。打开信安链移动应用程序，进入“设置”选项，点击“通过浏览器扩展程序同步”"
   },
   "syncWithMobileDescNewUsers": {
-    "message": "如果您是首次启用 MetaMask 移动应用程序，请通过个人手机完成如下操作。"
+    "message": "如果您是首次启用信安链移动应用程序，请通过个人手机完成如下操作。"
   },
   "syncWithMobileScanThisCode": {
-    "message": "使用 MetaMask 应用程序扫描编码"
+    "message": "使用信安链应用程序扫描编码"
   },
   "syncWithMobileBeCareful": {
     "message": "扫描编码时，请确保身边无其他人正在查看您的显示页面"
   },
   "syncWithMobileComplete": {
-    "message": "您的数据已同步成功。尽情体验 MetaMask 应用程序！"
+    "message": "您的数据已同步成功。尽情体验信安链应用程序！"
   },
   "terms": {
     "message": "使用条款"
@@ -1324,7 +1330,7 @@
     "message": "解锁"
   },
   "unlockMessage": {
-    "message": "分散网络待命中"
+    "message": "信安链待命中"
   },
   "updatedWithDate": {
     "message": "已更新 $1"
@@ -1363,7 +1369,7 @@
     "message": "欢迎回来！"
   },
   "welcome": {
-    "message": "欢迎使用 MetaMask 测试版"
+    "message": "欢迎使用信安链客户端"
   },
   "writePhrase": {
     "message": "请将该密语记录在纸上，并保存在安全的地方。如果希望提升信息安全性，请将信息记录在多张纸上，并分别保存在 2 - 3 个不同的地方。"
@@ -1385,5 +1391,11 @@
   },
   "zeroGasPriceOnSpeedUpError": {
     "message": "天然气价格加速上涨"
+  },
+  "ihaveread": {
+    "message": "我已阅读并且同意"
+  },
+  "termofuse": {
+    "message": "使用许可"
   }
 }

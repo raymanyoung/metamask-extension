@@ -1,3 +1,13 @@
-<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-    <path d="M19.9 30L7.5 22.7 19.9 40l12.4-17.3zm.2-30L7.7 20.4l12.4 7.3 12.4-7.2z" fill="#38393a"/>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill-rule:evenodd;clip-rule:evenodd;fill:#E03E46;}
+	.st1{fill-rule:evenodd;clip-rule:evenodd;fill:#0068B6;}
+</style>
+<path class="st0" d="M152.4,363.5l46-36.5c14.1,8.9,30.9,13.9,48.8,13.9c52.1,0,94.6-42.5,94.6-94.6c0-52.1-42.5-94.6-94.6-94.6
+	c-43.9,0-80.9,30.3-91.6,71l-58.2,0.1c11.1-72.2,73.9-128,149.1-128c83.1,0,151,67.8,151,151c0,83.1-67.8,151-151,151
+	C210.9,396.6,178,384.1,152.4,363.5L152.4,363.5z"/>
+<polygon class="st1" points="221.6,232.2 155.3,232.2 119,313.3 138.7,313.3 105.1,386.3 194.7,313.3 159.6,313.3 221.6,232.2 "/>
 </svg>

@@ -132,11 +132,11 @@
     "message": "Amount:"
   },
   "appDescription": {
-    "message": "An Ethereum Wallet in your Browser",
+    "message": "An iTrust Chain Wallet in your Browser",
     "description": "The description of the application"
   },
   "appName": {
-    "message": "MetaMask",
+    "message": "iTrust Wallet",
     "description": "The name of the application"
   },
   "approve": {
@@ -176,7 +176,7 @@
     "message": "Back to All"
   },
   "backupApprovalNotice": {
-    "message": "Backup your Secret Recovery code to keep your wallet and funds secure."
+    "message": "Backup your Secret Recovery code to keep your account secure."
   },
   "backupApprovalInfo": {
     "message": "This secret code is required to recover your wallet in case you lose your device, forget your password, have to re-install MetaMask, or want to access your wallet on another device."
@@ -324,6 +324,9 @@
   "connectingToGoerli": {
     "message": "Connecting to Goerli Test Network"
   },
+  "connectingToITrust": {
+    "message": "Connecting to iTrust Network"
+  }, 
   "contacts": {
     "message": "Contacts"
   },
@@ -790,13 +793,13 @@
     "message": "Message"
   },
   "metamaskDescription": {
-    "message": "Connecting you to Ethereum and the Decentralized Web."
+    "message": "Connecting you to iTrust Network."
   },
   "metamaskSeedWords": {
-    "message": "MetaMask Seed Words"
+    "message": "Seed Words"
   },
   "metamaskVersion": {
-    "message": "MetaMask Version"
+    "message": "Version"
   },
   "missingYourTokens": {
     "message": "Don't see your tokens?"
@@ -861,7 +864,7 @@
     "message": "New Network"
   },
   "newToMetaMask": {
-    "message": "New to MetaMask?"
+    "message": "New to iTrust Wallet?"
   },
   "noAlreadyHaveSeed": {
     "message": "No, I already have a seed phrase"
@@ -1092,6 +1095,9 @@
   "goerli": {
     "message": "Goerli Test Network"
   },
+  "itrust": {
+    "message": "iTrust Network"
+  },
   "save": {
     "message": "Save"
   },
@@ -1165,7 +1171,7 @@
     "message": "Send Tokens"
   },
   "sentEther": {
-    "message": "sent ether"
+    "message": "sent gas"
   },
   "sentTokens": {
     "message": "sent tokens"
@@ -1508,7 +1514,7 @@
     "message": "Welcome Back!"
   },
   "welcome": {
-    "message": "Welcome to MetaMask"
+    "message": "Welcome to iTrust Wallet"
   },
   "writePhrase": {
     "message": "Write this phrase on a piece of paper and store in a secure location. If you want even more security, write it down on multiple pieces of paper and store each in 2 - 3 different locations."
@@ -1530,5 +1536,11 @@
   },
   "zeroGasPriceOnSpeedUpError": {
     "message": "Zero gas price on speed up"
+  },
+  "ihaveread": {
+    "message": "I have read and agree to the "
+  },
+  "termofuse": {
+    "message": "Term of Use"
   }
 }

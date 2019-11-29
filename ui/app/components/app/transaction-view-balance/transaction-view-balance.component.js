@@ -85,7 +85,9 @@ export default class TransactionViewBalance extends PureComponent {
     return (
       <div className="transaction-view-balance__buttons">
         {
-          !selectedToken && (
+          // !selectedToken
+          false
+           && (
             <Button
               type="secondary"
               className="transaction-view-balance__button"

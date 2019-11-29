@@ -142,8 +142,7 @@ export default class UnlockPage extends Component {
       <div className="unlock-page__container">
         <div className="unlock-page">
           <div className="unlock-page__mascot-container">
-            <Mascot
-              animationEventEmitter={this.animationEventEmitter}
+            <img src="images/logo/metamask-logo-horizontal.svg"
               width="120"
               height="120"
             />

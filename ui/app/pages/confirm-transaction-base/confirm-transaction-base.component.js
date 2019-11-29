@@ -247,12 +247,12 @@ export default class ConfirmTransactionBase extends Component {
         <div className="confirm-page-container-content__details">
           <div className="confirm-page-container-content__gas-fee">
             <ConfirmDetailRow
-              label="Gas Fee"
+              label="燃气费"
               value={hexTransactionFee}
               headerText="Edit"
               headerTextClassName="confirm-detail-row__header-text--edit"
               onHeaderClick={() => this.handleEditGas()}
-              secondaryText={hideFiatConversion ? this.context.t('noConversionRateAvailable') : ''}
+              secondaryText='-'
             />
             {advancedInlineGasShown
               ? <AdvancedGasInputs
@@ -269,11 +269,11 @@ export default class ConfirmTransactionBase extends Component {
           </div>
           <div className={useNonceField ? 'confirm-page-container-content__gas-fee' : null}>
             <ConfirmDetailRow
-              label="Total"
+              label="总计"
               value={hexTransactionTotal}
               primaryText={primaryTotalTextOverride}
               secondaryText={hideFiatConversion ? this.context.t('noConversionRateAvailable') : secondaryTotalTextOverride}
-              headerText="Amount + Gas Fee"
+              headerText="转账数额 + 燃气费"
               headerTextClassName="confirm-detail-row__header-text--total"
               primaryValueTextColor="#2f9ae0"
             />
@@ -522,7 +522,7 @@ export default class ConfirmTransactionBase extends Component {
         value={hexTransactionAmount}
         type={PRIMARY}
         showEthLogo
-        ethLogoHeight="26"
+        ethLogoHeight="50"
         hideLabel
       />
     )

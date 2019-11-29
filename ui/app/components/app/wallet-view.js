@@ -163,7 +163,7 @@ WalletView.prototype.render = function () {
 
     h(TokenList),
 
-    this.renderAddToken(),
+    // this.renderAddToken(),
   ])
 }
 
