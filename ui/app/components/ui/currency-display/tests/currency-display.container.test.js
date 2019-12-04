@@ -17,7 +17,7 @@ describe('CurrencyDisplay container', () => {
   describe('mapStateToProps()', () => {
     it('should return the correct props', () => {
       const mockState = {
-        metamask: {
+        iTrust: {
           conversionRate: 280.45,
           currentCurrency: 'usd',
           nativeCurrency: 'ETH',

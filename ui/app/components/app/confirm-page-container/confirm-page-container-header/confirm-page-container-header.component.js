@@ -23,7 +23,7 @@ export default class ConfirmPageContainerHeader extends Component {
 
   renderTop () {
     const { onEdit, showEdit, accountAddress, showAccountInHeader } = this.props
-    const windowType = window.METAMASK_UI_TYPE
+    const windowType = window.ITRUST_UI_TYPE
     const isFullScreen = windowType !== ENVIRONMENT_TYPE_NOTIFICATION &&
       windowType !== ENVIRONMENT_TYPE_POPUP
 

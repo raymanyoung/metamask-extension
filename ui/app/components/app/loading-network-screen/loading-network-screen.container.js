@@ -12,7 +12,7 @@ const mapStateToProps = state => {
     provider,
     lastSelectedProvider,
     network,
-  } = state.metamask
+  } = state.iTrust
   const { rpcTarget, chainId, ticker, nickname, type } = provider
 
   const setProviderArgs = type === 'rpc'

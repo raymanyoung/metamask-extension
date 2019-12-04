@@ -11,7 +11,7 @@ const selectors = {
 module.exports = selectors
 
 function getFirstTimeFlowTypeRoute (state) {
-  const { firstTimeFlowType } = state.metamask
+  const { firstTimeFlowType } = state.iTrust
 
   let nextRoute
   if (firstTimeFlowType === 'create') {

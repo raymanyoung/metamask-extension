@@ -24,7 +24,7 @@ import {
 import { isBalanceSufficient } from '../../../pages/send/send.utils'
 
 const mapStateToProps = (state, ownProps) => {
-  const { metamask: { accounts, provider, frequentRpcListDetail } } = state
+  const { iTrust: { accounts, provider, frequentRpcListDetail } } = state
   const { showFiatInTestnets } = preferencesSelector(state)
   const isMainnet = getIsMainnet(state)
   const { transactionGroup: { primaryTransaction } = {} } = ownProps

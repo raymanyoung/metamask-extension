@@ -99,7 +99,7 @@ describe('custom-gas selectors', () => {
           },
         ],
         mockState: {
-          metamask: {
+          iTrust: {
             conversionRate: 255.71,
             currentCurrency: 'usd',
             preferences: {
@@ -149,7 +149,7 @@ describe('custom-gas selectors', () => {
           },
         ],
         mockState: {
-          metamask: {
+          iTrust: {
             conversionRate: 2557.1,
             currentCurrency: 'usd',
             send: {
@@ -202,7 +202,7 @@ describe('custom-gas selectors', () => {
           },
         ],
         mockState: {
-          metamask: {
+          iTrust: {
             conversionRate: 2557.1,
             currentCurrency: 'usd',
             send: {
@@ -255,7 +255,7 @@ describe('custom-gas selectors', () => {
           },
         ],
         mockState: {
-          metamask: {
+          iTrust: {
             conversionRate: 2557.1,
             currentCurrency: 'usd',
             send: {
@@ -308,7 +308,7 @@ describe('custom-gas selectors', () => {
           },
         ],
         mockState: {
-          metamask: {
+          iTrust: {
             conversionRate: 2557.1,
             currentCurrency: 'usd',
             send: {
@@ -372,7 +372,7 @@ describe('custom-gas selectors', () => {
           },
         ],
         mockState: {
-          metamask: {
+          iTrust: {
             conversionRate: 255.71,
             currentCurrency: 'usd',
             send: {
@@ -422,7 +422,7 @@ describe('custom-gas selectors', () => {
           },
         ],
         mockState: {
-          metamask: {
+          iTrust: {
             conversionRate: 2557.1,
             currentCurrency: 'usd',
             send: {
@@ -472,7 +472,7 @@ describe('custom-gas selectors', () => {
           },
         ],
         mockState: {
-          metamask: {
+          iTrust: {
             conversionRate: 2557.1,
             currentCurrency: 'usd',
             send: {
@@ -522,7 +522,7 @@ describe('custom-gas selectors', () => {
           },
         ],
         mockState: {
-          metamask: {
+          iTrust: {
             conversionRate: 2557.1,
             currentCurrency: 'usd',
             send: {
@@ -572,7 +572,7 @@ describe('custom-gas selectors', () => {
           },
         ],
         mockState: {
-          metamask: {
+          iTrust: {
             conversionRate: 2557.1,
             currentCurrency: 'usd',
             send: {

@@ -85,7 +85,7 @@ class Routes extends Component {
 
     this.props.history.listen((locationObj, action) => {
       if (action === 'PUSH') {
-        const url = `&url=${encodeURIComponent('http://www.metamask.io/metametrics' + locationObj.pathname)}`
+        const url = `&url=${encodeURIComponent('http://www.itrustchain.com/metametrics' + locationObj.pathname)}`
         this.context.metricsEvent({}, {
           currentPath: '',
           pathname: locationObj.pathname,
@@ -157,11 +157,11 @@ class Routes extends Component {
       return true
     }
 
-    if (window.METAMASK_UI_TYPE === ENVIRONMENT_TYPE_NOTIFICATION) {
+    if (window.ITRUST_UI_TYPE === ENVIRONMENT_TYPE_NOTIFICATION) {
       return true
     }
 
-    if (window.METAMASK_UI_TYPE === ENVIRONMENT_TYPE_POPUP) {
+    if (window.ITRUST_UI_TYPE === ENVIRONMENT_TYPE_POPUP) {
       return this.onConfirmPage() || this.hasProviderRequests()
     }
   }
@@ -351,7 +351,7 @@ Routes.propTypes = {
 }
 
 function mapStateToProps (state) {
-  const { appState, metamask } = state
+  const { appState, iTrust } = state
   const {
     sidebar,
     alertOpen,
@@ -367,20 +367,20 @@ function mapStateToProps (state) {
     sidebar,
     alertOpen,
     alertMessage,
-    textDirection: state.metamask.textDirection,
+    textDirection: state.iTrust.textDirection,
     isLoading,
     loadingMessage,
-    isUnlocked: state.metamask.isUnlocked,
+    isUnlocked: state.iTrust.isUnlocked,
     currentView: state.appState.currentView,
     submittedPendingTransactions: submittedPendingTransactionsSelector(state),
-    network: state.metamask.network,
-    provider: state.metamask.provider,
-    frequentRpcListDetail: state.metamask.frequentRpcListDetail || [],
-    currentCurrency: state.metamask.currentCurrency,
+    network: state.iTrust.network,
+    provider: state.iTrust.provider,
+    frequentRpcListDetail: state.iTrust.frequentRpcListDetail || [],
+    currentCurrency: state.iTrust.currentCurrency,
     isMouseUser: state.appState.isMouseUser,
     providerId: getNetworkIdentifier(state),
     autoLogoutTimeLimit,
-    providerRequests: metamask.providerRequests,
+    providerRequests: iTrust.providerRequests,
   }
 }
 

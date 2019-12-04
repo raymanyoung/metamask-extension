@@ -24,11 +24,11 @@ const migrations = require('./migrations/')
 const PortStream = require('extension-port-stream')
 const createStreamSink = require('./lib/createStreamSink')
 const NotificationManager = require('./lib/notification-manager.js')
-const MetamaskController = require('./metamask-controller')
+const ITrustController = require('./itrust-controller')
 const rawFirstTimeState = require('./first-time-state')
 const setupSentry = require('./lib/setupSentry')
 const reportFailedTxToSentry = require('./lib/reportFailedTxToSentry')
-const setupMetamaskMeshMetrics = require('./lib/setupMetamaskMeshMetrics')
+const setupITrustMeshMetrics = require('./lib/setupITrustMeshMetrics')
 const EdgeEncryptor = require('./edge-encryptor')
 const getFirstPreferredLangCode = require('./lib/get-first-preferred-lang-code')
 const getObjStructure = require('./lib/getObjStructure')
@@ -40,16 +40,16 @@ const {
   ENVIRONMENT_TYPE_FULLSCREEN,
 } = require('./lib/enums')
 
-// METAMASK_TEST_CONFIG is used in e2e tests to set the default network to localhost
-const firstTimeState = Object.assign({}, rawFirstTimeState, global.METAMASK_TEST_CONFIG)
+// ITRUST_TEST_CONFIG is used in e2e tests to set the default network to localhost
+const firstTimeState = Object.assign({}, rawFirstTimeState, global.ITRUST_TEST_CONFIG)
 
-const METAMASK_DEBUG = process.env.METAMASK_DEBUG
+const ITRUST_DEBUG = process.env.ITRUST_DEBUG
 
-log.setDefaultLevel(process.env.METAMASK_DEBUG ? 'debug' : 'warn')
+log.setDefaultLevel(process.env.ITRUST_DEBUG ? 'debug' : 'warn')
 
 const platform = new ExtensionPlatform()
 const notificationManager = new NotificationManager()
-global.METAMASK_NOTIFIER = notificationManager
+global.ITRUST_NOTIFIER = notificationManager
 
 // setup sentry error reporting
 const release = platform.getVersion()
@@ -63,7 +63,7 @@ const isEdge = !isIE && !!window.StyleMedia
 
 let popupIsOpen = false
 let notificationIsOpen = false
-const openMetamaskTabsIDs = {}
+const openITrustTabsIDs = {}
 
 // state persistence
 const localStore = new LocalStore()
@@ -72,8 +72,8 @@ let versionedData
 // initialization flow
 initialize().catch(log.error)
 
-// setup metamask mesh testing container
-const { submitMeshMetricsEntry } = setupMetamaskMeshMetrics()
+// setup itrust mesh testing container
+const { submitMeshMetricsEntry } = setupITrustMeshMetrics()
 
 
 /**
@@ -83,7 +83,7 @@ const { submitMeshMetricsEntry } = setupMetamaskMeshMetrics()
  * @property {number} id - An internally unique tx identifier.
  * @property {number} time - Time the tx was first suggested, in unix epoch time (ms).
  * @property {string} status - The current transaction status (unapproved, signed, submitted, dropped, failed, rejected), as defined in `tx-state-manager.js`.
- * @property {string} metamaskNetworkId - The transaction's network ID, used for EIP-155 compliance.
+ * @property {string} iTrustNetworkId - The transaction's network ID, used for EIP-155 compliance.
  * @property {boolean} loadingDefaults - TODO: Document
  * @property {Object} txParams - The tx params as passed to the network provider.
  * @property {Object[]} history - A history of mutations to this TransactionMeta object.
@@ -98,8 +98,8 @@ const { submitMeshMetricsEntry } = setupMetamaskMeshMetrics()
  */
 
 /**
- * The data emitted from the MetaMaskController.store EventEmitter, also used to initialize the MetaMaskController. Available in UI on React state as state.metamask.
- * @typedef MetaMaskState
+ * The data emitted from the ITrustController.store EventEmitter, also used to initialize the ITrustController. Available in UI on React state as state.iTrust.
+ * @typedef iTrustState
  * @property {boolean} isInitialized - Whether the first vault has been created.
  * @property {boolean} isUnlocked - Whether the vault is currently decrypted and accounts are available for selection.
  * @property {boolean} isAccountMenuOpen - Represents whether the main account selection UI is currently displayed.
@@ -121,7 +121,7 @@ const { submitMeshMetricsEntry } = setupMetamaskMeshMetrics()
  * @property {string} currentLocale - A locale string matching the user's preferred display language.
  * @property {Object} provider - The current selected network provider.
  * @property {string} provider.rpcTarget - The address for the RPC API, if using an RPC API.
- * @property {string} provider.type - An identifier for the type of network selected, allows MetaMask to use custom provider strategies for known networks.
+ * @property {string} provider.type - An identifier for the type of network selected, allows iTrust to use custom provider strategies for known networks.
  * @property {string} network - A stringified number of the current network ID.
  * @property {Object} accounts - An object mapping lower-case hex addresses to objects with "balance" and "address" keys, both storing hex string values.
  * @property {hex} currentBlockGasLimit - The most recently seen block gas limit, in a lower case hex prefixed string.
@@ -147,19 +147,19 @@ const { submitMeshMetricsEntry } = setupMetamaskMeshMetrics()
 
 /**
  * @typedef VersionedData
- * @property {MetaMaskState} data - The data emitted from MetaMask controller, or used to initialize it.
+ * @property {iTrustState} data - The data emitted from iTrust controller, or used to initialize it.
  * @property {Number} version - The latest migration version that has been run.
  */
 
 /**
- * Initializes the MetaMask controller, and sets up all platform configuration.
+ * Initializes the iTrust controller, and sets up all platform configuration.
  * @returns {Promise} Setup complete.
  */
 async function initialize () {
   const initState = await loadStateFromPersistence()
   const initLangCode = await getFirstPreferredLangCode()
   await setupController(initState, initLangCode)
-  log.debug('MetaMask initialization complete.')
+  log.debug('iTrust initialization complete.')
 }
 
 //
@@ -169,7 +169,7 @@ async function initialize () {
 /**
  * Loads any stored data, prioritizing the latest storage strategy.
  * Migrates that data schema in case it was last loaded on an older version.
- * @returns {Promise<MetaMaskState>} Last data emitted from previous instance of MetaMask.
+ * @returns {Promise<iTrustState>} Last data emitted from previous instance of iTrust.
  */
 async function loadStateFromPersistence () {
   // migrations
@@ -183,11 +183,10 @@ async function loadStateFromPersistence () {
   // check if somehow state is empty
   // this should never happen but new error reporting suggests that it has
   // for a small number of users
-  // https://github.com/metamask/metamask-extension/issues/3919
   if (versionedData && !versionedData.data) {
     // unable to recover, clear state
     versionedData = migrator.generateInitialState(firstTimeState)
-    sentry.captureMessage('MetaMask - Empty vault found - unable to recover')
+    sentry.captureMessage('iTrust - Empty vault found - unable to recover')
   }
 
   // report migration errors to sentry
@@ -203,7 +202,7 @@ async function loadStateFromPersistence () {
   // migrate data
   versionedData = await migrator.migrateData(versionedData)
   if (!versionedData) {
-    throw new Error('MetaMask - migrator returned undefined')
+    throw new Error('iTrust - migrator returned undefined')
   }
 
   // write to disk
@@ -212,7 +211,7 @@ async function loadStateFromPersistence () {
   } else {
     // throw in setTimeout so as to not block boot
     setTimeout(() => {
-      throw new Error('MetaMask - Localstore not supported')
+      throw new Error('iTrust - Localstore not supported')
     })
   }
 
@@ -221,7 +220,7 @@ async function loadStateFromPersistence () {
 }
 
 /**
- * Initializes the MetaMask Controller with any initial state and default language.
+ * Initializes the iTrust Controller with any initial state and default language.
  * Configures platform-specific error reporting strategy.
  * Streams emitted state updates to platform-specific storage strategy.
  * Creates platform listeners for new Dapps/Contexts, and sets up their data connections to the controller.
@@ -232,10 +231,10 @@ async function loadStateFromPersistence () {
  */
 function setupController (initState, initLangCode) {
   //
-  // MetaMask Controller
+  // iTrust Controller
   //
 
-  const controller = new MetamaskController({
+  const controller = new ITrustController({
     // User confirmation callbacks:
     showUnconfirmedMessage: triggerUi,
     showUnapprovedTx: triggerUi,
@@ -276,13 +275,13 @@ function setupController (initState, initLangCode) {
     storeTransform(versionifyData),
     createStreamSink(persistData),
     (error) => {
-      log.error('MetaMask - Persistence pipeline failed', error)
+      log.error('iTrust - Persistence pipeline failed', error)
     }
   )
 
   /**
    * Assigns the given state to the versioned object (with metadata), and returns that.
-   * @param {Object} state - The state object as emitted by the MetaMaskController.
+   * @param {Object} state - The state object as emitted by the ITrustController.
    * @returns {VersionedData} The state object wrapped in an object that includes a metadata key.
    */
   function versionifyData (state) {
@@ -292,10 +291,10 @@ function setupController (initState, initLangCode) {
 
   async function persistData (state) {
     if (!state) {
-      throw new Error('MetaMask - updated state is missing', state)
+      throw new Error('iTrust - updated state is missing', state)
     }
     if (!state.data) {
-      throw new Error('MetaMask - updated state does not have data', state)
+      throw new Error('iTrust - updated state does not have data', state)
     }
     if (localStore.isSupported) {
       try {
@@ -313,18 +312,18 @@ function setupController (initState, initLangCode) {
   extension.runtime.onConnect.addListener(connectRemote)
   extension.runtime.onConnectExternal.addListener(connectExternal)
 
-  const metamaskInternalProcessHash = {
+  const itrustInternalProcessHash = {
     [ENVIRONMENT_TYPE_POPUP]: true,
     [ENVIRONMENT_TYPE_NOTIFICATION]: true,
     [ENVIRONMENT_TYPE_FULLSCREEN]: true,
   }
 
-  const metamaskBlacklistedPorts = [
+  const itrustBlacklistedPorts = [
     'trezor-connect',
   ]
 
   const isClientOpenStatus = () => {
-    return popupIsOpen || Boolean(Object.keys(openMetamaskTabsIDs).length) || notificationIsOpen
+    return popupIsOpen || Boolean(Object.keys(openITrustTabsIDs).length) || notificationIsOpen
   }
 
   /**
@@ -335,26 +334,26 @@ function setupController (initState, initLangCode) {
    */
 
   /**
-   * Connects a Port to the MetaMask controller via a multiplexed duplex stream.
-   * This method identifies trusted (MetaMask) interfaces, and connects them differently from untrusted (web pages).
+   * Connects a Port to the iTrust controller via a multiplexed duplex stream.
+   * This method identifies trusted (iTrust) interfaces, and connects them differently from untrusted (web pages).
    * @param {Port} remotePort - The port provided by a new context.
    */
   function connectRemote (remotePort) {
     const processName = remotePort.name
-    const isMetaMaskInternalProcess = metamaskInternalProcessHash[processName]
+    const isITrustInternalProcess = itrustInternalProcessHash[processName]
 
-    if (metamaskBlacklistedPorts.includes(remotePort.name)) {
+    if (itrustBlacklistedPorts.includes(remotePort.name)) {
       return false
     }
 
-    if (isMetaMaskInternalProcess) {
+    if (isITrustInternalProcess) {
       const portStream = new PortStream(remotePort)
       // communication with popup
       controller.isClientOpen = true
       // construct fake URL for identifying internal messages
-      const metamaskUrl = new URL(window.location)
-      metamaskUrl.hostname = 'metamask'
-      controller.setupTrustedCommunication(portStream, metamaskUrl)
+      const itrustUrl = new URL(window.location)
+      itrustUrl.hostname = 'itrust'
+      controller.setupTrustedCommunication(portStream, itrustUrl)
 
       if (processName === ENVIRONMENT_TYPE_POPUP) {
         popupIsOpen = true
@@ -376,10 +375,10 @@ function setupController (initState, initLangCode) {
 
       if (processName === ENVIRONMENT_TYPE_FULLSCREEN) {
         const tabId = remotePort.sender.tab.id
-        openMetamaskTabsIDs[tabId] = true
+        openITrustTabsIDs[tabId] = true
 
         endOfStream(portStream, () => {
-          delete openMetamaskTabsIDs[tabId]
+          delete openITrustTabsIDs[tabId]
           controller.isClientOpen = isClientOpenStatus()
         })
       }
@@ -441,8 +440,8 @@ function setupController (initState, initLangCode) {
  */
 function triggerUi () {
   extension.tabs.query({ active: true }, tabs => {
-    const currentlyActiveMetamaskTab = Boolean(tabs.find(tab => openMetamaskTabsIDs[tab.id]))
-    if (!popupIsOpen && !currentlyActiveMetamaskTab && !notificationIsOpen) {
+    const currentlyActiveTab = Boolean(tabs.find(tab => openITrustTabsIDs[tab.id]))
+    if (!popupIsOpen && !currentlyActiveTab && !notificationIsOpen) {
       notificationManager.showPopup()
       notificationIsOpen = true
     }
@@ -467,9 +466,9 @@ function openPopup () {
   )
 }
 
-// On first install, open a new tab with MetaMask
+// On first install, open a new tab with iTrust
 extension.runtime.onInstalled.addListener(({reason}) => {
-  if ((reason === 'install') && (!METAMASK_DEBUG)) {
+  if ((reason === 'install') && (!ITRUST_DEBUG)) {
     platform.openExtensionInBrowser()
   }
 })

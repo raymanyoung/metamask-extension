@@ -56,7 +56,7 @@ class DiagnosticsReporter {
 }
 
 function postData (data) {
-  const uri = 'https://diagnostics.metamask.io/v1/orphanedAccounts'
+  const uri = 'https://diagnostics.iTrust.io/v1/orphanedAccounts'
   return fetch(uri, {
     body: JSON.stringify(data), // must match 'Content-Type' header
     credentials: 'same-origin', // include, same-origin, *omit

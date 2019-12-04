@@ -56,7 +56,7 @@ var actions = {
   transitionBackward,
   // remote state
   UPDATE_METAMASK_STATE: 'UPDATE_METAMASK_STATE',
-  updateMetamaskState: updateMetamaskState,
+  updateITrustState: updateITrustState,
   markAccountsFound,
   // intialize screen
   CREATE_NEW_VAULT_IN_PROGRESS: 'CREATE_NEW_VAULT_IN_PROGRESS',
@@ -292,7 +292,7 @@ var actions = {
   showNewKeychain: showNewKeychain,
 
   callBackgroundThenUpdate,
-  forceUpdateMetamaskState,
+  forceupdateITrustState,
 
   TOGGLE_ACCOUNT_MENU: 'TOGGLE_ACCOUNT_MENU',
   toggleAccountMenu,
@@ -428,7 +428,7 @@ function tryUnlockMetamask (password) {
     })
       .then(() => {
         dispatch(actions.unlockSucceeded())
-        return forceUpdateMetamaskState(dispatch)
+        return forceupdateITrustState(dispatch)
       })
       .then(() => {
         return new Promise((resolve, reject) => {
@@ -518,7 +518,7 @@ function unlockAndGetSeedPhrase (password) {
     try {
       await submitPassword(password)
       const seedWords = await verifySeedPhrase()
-      await forceUpdateMetamaskState(dispatch)
+      await forceupdateITrustState(dispatch)
       dispatch(actions.hideLoadingIndication())
       return seedWords
     } catch (error) {
@@ -696,7 +696,7 @@ function importNewAccount (strategy, args) {
       throw err
     }
     dispatch(actions.hideLoadingIndication())
-    dispatch(actions.updateMetamaskState(newState))
+    dispatch(actions.updateITrustState(newState))
     if (newState.selectedAddress) {
       dispatch({
         type: actions.SHOW_ACCOUNT_DETAIL,
@@ -716,7 +716,7 @@ function navigateToNewAccountScreen () {
 function addNewAccount () {
   log.debug(`background.addNewAccount`)
   return (dispatch, getState) => {
-    const oldIdentities = getState().metamask.identities
+    const oldIdentities = getState().iTrust.identities
     dispatch(actions.showLoadingIndication())
     return new Promise((resolve, reject) => {
       background.addNewAccount((err, { identities: newIdentities}) => {
@@ -728,7 +728,7 @@ function addNewAccount () {
 
         dispatch(actions.hideLoadingIndication())
 
-        forceUpdateMetamaskState(dispatch)
+        forceupdateITrustState(dispatch)
         return resolve(newAccountAddress)
       })
     })
@@ -749,7 +749,7 @@ function checkHardwareStatus (deviceName, hdPath) {
 
         dispatch(actions.hideLoadingIndication())
 
-        forceUpdateMetamaskState(dispatch)
+        forceupdateITrustState(dispatch)
         return resolve(unlocked)
       })
     })
@@ -770,7 +770,7 @@ function forgetDevice (deviceName) {
 
         dispatch(actions.hideLoadingIndication())
 
-        forceUpdateMetamaskState(dispatch)
+        forceupdateITrustState(dispatch)
         return resolve()
       })
     })
@@ -791,7 +791,7 @@ function connectHardware (deviceName, page, hdPath) {
 
         dispatch(actions.hideLoadingIndication())
 
-        forceUpdateMetamaskState(dispatch)
+        forceupdateITrustState(dispatch)
         return resolve(accounts)
       })
     })
@@ -875,7 +875,7 @@ function signMsg (msgData) {
       log.debug(`actions calling background.signMessage`)
       background.signMessage(msgData, (err, newState) => {
         log.debug('signMessage called back')
-        dispatch(actions.updateMetamaskState(newState))
+        dispatch(actions.updateITrustState(newState))
         dispatch(actions.hideLoadingIndication())
 
         if (err) {
@@ -884,7 +884,7 @@ function signMsg (msgData) {
           return reject(err)
         }
 
-        dispatch(actions.completedTx(msgData.metamaskId))
+        dispatch(actions.completedTx(msgData.iTrustId))
         dispatch(closeCurrentNotificationWindow())
 
         return resolve(msgData)
@@ -901,7 +901,7 @@ function signPersonalMsg (msgData) {
       log.debug(`actions calling background.signPersonalMessage`)
       background.signPersonalMessage(msgData, (err, newState) => {
         log.debug('signPersonalMessage called back')
-        dispatch(actions.updateMetamaskState(newState))
+        dispatch(actions.updateITrustState(newState))
         dispatch(actions.hideLoadingIndication())
 
         if (err) {
@@ -910,7 +910,7 @@ function signPersonalMsg (msgData) {
           return reject(err)
         }
 
-        dispatch(actions.completedTx(msgData.metamaskId))
+        dispatch(actions.completedTx(msgData.iTrustId))
         dispatch(closeCurrentNotificationWindow())
 
         return resolve(msgData)
@@ -927,7 +927,7 @@ function signTypedMsg (msgData) {
       log.debug(`actions calling background.signTypedMessage`)
       background.signTypedMessage(msgData, (err, newState) => {
         log.debug('signTypedMessage called back')
-        dispatch(actions.updateMetamaskState(newState))
+        dispatch(actions.updateITrustState(newState))
         dispatch(actions.hideLoadingIndication())
 
         if (err) {
@@ -936,7 +936,7 @@ function signTypedMsg (msgData) {
           return reject(err)
         }
 
-        dispatch(actions.completedTx(msgData.metamaskId))
+        dispatch(actions.completedTx(msgData.iTrustId))
         dispatch(closeCurrentNotificationWindow())
 
         return resolve(msgData)
@@ -1142,7 +1142,7 @@ function sendTx (txData) {
       }
       dispatch(actions.completedTx(txData.id))
 
-      if (global.METAMASK_UI_TYPE === ENVIRONMENT_TYPE_NOTIFICATION &&
+      if (global.ITRUST_UI_TYPE === ENVIRONMENT_TYPE_NOTIFICATION &&
         !hasUnconfirmedTransactions(getState())) {
         return global.platform.closeCurrentWindow()
       }
@@ -1163,7 +1163,7 @@ function signTokenTx (tokenAddress, toAddress, amount, txData) {
   }
 }
 
-const updateMetamaskStateFromBackground = () => {
+const updateITrustStateFromBackground = () => {
   log.debug(`background.getState`)
 
   return new Promise((resolve, reject) => {
@@ -1196,8 +1196,8 @@ function updateTransaction (txData) {
         resolve(txData)
       })
     })
-      .then(() => updateMetamaskStateFromBackground())
-      .then(newState => dispatch(actions.updateMetamaskState(newState)))
+      .then(() => updateITrustStateFromBackground())
+      .then(newState => dispatch(actions.updateITrustState(newState)))
       .then(() => {
         dispatch(actions.showConfTxPage({ id: txData.id }))
         dispatch(actions.hideLoadingIndication())
@@ -1226,8 +1226,8 @@ function updateAndApproveTx (txData) {
         resolve(txData)
       })
     })
-      .then(() => updateMetamaskStateFromBackground())
-      .then(newState => dispatch(actions.updateMetamaskState(newState)))
+      .then(() => updateITrustStateFromBackground())
+      .then(newState => dispatch(actions.updateITrustState(newState)))
       .then(() => {
         dispatch(actions.clearSend())
         dispatch(actions.completedTx(txData.id))
@@ -1272,7 +1272,7 @@ function cancelMsg (msgData) {
     return new Promise((resolve, reject) => {
       log.debug(`background.cancelMessage`)
       background.cancelMessage(msgData.id, (err, newState) => {
-        dispatch(actions.updateMetamaskState(newState))
+        dispatch(actions.updateITrustState(newState))
         dispatch(actions.hideLoadingIndication())
 
         if (err) {
@@ -1294,7 +1294,7 @@ function cancelPersonalMsg (msgData) {
     return new Promise((resolve, reject) => {
       const id = msgData.id
       background.cancelPersonalMessage(id, (err, newState) => {
-        dispatch(actions.updateMetamaskState(newState))
+        dispatch(actions.updateITrustState(newState))
         dispatch(actions.hideLoadingIndication())
 
         if (err) {
@@ -1316,7 +1316,7 @@ function cancelTypedMsg (msgData) {
     return new Promise((resolve, reject) => {
       const id = msgData.id
       background.cancelTypedMessage(id, (err, newState) => {
-        dispatch(actions.updateMetamaskState(newState))
+        dispatch(actions.updateITrustState(newState))
         dispatch(actions.hideLoadingIndication())
 
         if (err) {
@@ -1345,8 +1345,8 @@ function cancelTx (txData) {
         resolve()
       })
     })
-      .then(() => updateMetamaskStateFromBackground())
-      .then(newState => dispatch(actions.updateMetamaskState(newState)))
+      .then(() => updateITrustStateFromBackground())
+      .then(newState => dispatch(actions.updateITrustState(newState)))
       .then(() => {
         dispatch(actions.clearSend())
         dispatch(actions.completedTx(txData.id))
@@ -1378,8 +1378,8 @@ function cancelTxs (txDataList) {
     }))
 
     await Promise.all(cancellations)
-    const newState = await updateMetamaskStateFromBackground()
-    dispatch(actions.updateMetamaskState(newState))
+    const newState = await updateITrustStateFromBackground()
+    dispatch(actions.updateITrustState(newState))
     dispatch(actions.clearSend())
 
     txIds.forEach((id) => {
@@ -1388,7 +1388,7 @@ function cancelTxs (txDataList) {
 
     dispatch(actions.hideLoadingIndication())
 
-    if (global.METAMASK_UI_TYPE === ENVIRONMENT_TYPE_NOTIFICATION) {
+    if (global.ITRUST_UI_TYPE === ENVIRONMENT_TYPE_NOTIFICATION) {
       return global.platform.closeCurrentWindow()
     }
   }
@@ -1432,7 +1432,7 @@ function markPasswordForgotten () {
     return background.markPasswordForgotten(() => {
       dispatch(actions.hideLoadingIndication())
       dispatch(actions.forgotPassword())
-      forceUpdateMetamaskState(dispatch)
+      forceupdateITrustState(dispatch)
     })
   }
 }
@@ -1445,7 +1445,7 @@ function unMarkPasswordForgotten () {
         resolve()
       })
     })
-      .then(() => forceUpdateMetamaskState(dispatch))
+      .then(() => forceupdateITrustState(dispatch))
   }
 }
 
@@ -1537,7 +1537,7 @@ function unlockMetamask (account) {
   }
 }
 
-function updateMetamaskState (newState) {
+function updateITrustState (newState) {
   return {
     type: actions.UPDATE_METAMASK_STATE,
     value: newState,
@@ -1562,13 +1562,13 @@ function lockMetamask () {
     dispatch(actions.showLoadingIndication())
 
     return backgroundSetLocked()
-      .then(() => updateMetamaskStateFromBackground())
+      .then(() => updateITrustStateFromBackground())
       .catch(error => {
         dispatch(actions.displayWarning(error.message))
         return Promise.reject(error)
       })
       .then(newState => {
-        dispatch(actions.updateMetamaskState(newState))
+        dispatch(actions.updateITrustState(newState))
         dispatch(actions.hideLoadingIndication())
         dispatch({ type: actions.LOCK_METAMASK })
       })
@@ -1755,14 +1755,14 @@ function removeSuggestedTokens () {
           dispatch(actions.displayWarning(err.message))
         }
         dispatch(actions.clearPendingTokens())
-        if (global.METAMASK_UI_TYPE === ENVIRONMENT_TYPE_NOTIFICATION) {
+        if (global.ITRUST_UI_TYPE === ENVIRONMENT_TYPE_NOTIFICATION) {
           return global.platform.closeCurrentWindow()
         }
         resolve(suggestedTokens)
       })
     })
-      .then(() => updateMetamaskStateFromBackground())
-      .then(suggestedTokens => dispatch(actions.updateMetamaskState({...suggestedTokens})))
+      .then(() => updateITrustStateFromBackground())
+      .then(suggestedTokens => dispatch(actions.updateITrustState({...suggestedTokens})))
   }
 }
 
@@ -1814,7 +1814,7 @@ function retryTransaction (txId, gasPrice) {
         resolve(newState)
       })
     })
-      .then(newState => dispatch(actions.updateMetamaskState(newState)))
+      .then(newState => dispatch(actions.updateITrustState(newState)))
       .then(() => newTxId)
   }
 }
@@ -1837,7 +1837,7 @@ function createCancelTransaction (txId, customGasPrice) {
         resolve(newState)
       })
     })
-      .then(newState => dispatch(actions.updateMetamaskState(newState)))
+      .then(newState => dispatch(actions.updateITrustState(newState)))
       .then(() => newTxId)
   }
 }
@@ -1859,7 +1859,7 @@ function createSpeedUpTransaction (txId, customGasPrice) {
         resolve(newState)
       })
     })
-      .then(newState => dispatch(actions.updateMetamaskState(newState)))
+      .then(newState => dispatch(actions.updateITrustState(newState)))
       .then(() => newTx)
   }
 }
@@ -1881,7 +1881,7 @@ function createRetryTransaction (txId, customGasPrice) {
         resolve(newState)
       })
     })
-      .then(newState => dispatch(actions.updateMetamaskState(newState)))
+      .then(newState => dispatch(actions.updateITrustState(newState)))
       .then(() => newTx)
   }
 }
@@ -1892,7 +1892,7 @@ function createRetryTransaction (txId, customGasPrice) {
 
 function setProviderType (type) {
   return (dispatch, getState) => {
-    const { type: currentProviderType } = getState().metamask.provider
+    const { type: currentProviderType } = getState().iTrust.provider
     log.debug(`background.setProviderType`, type)
     background.setProviderType(type, (err) => {
       if (err) {
@@ -1995,7 +1995,7 @@ function addToAddressBook (recipient, nickname = '', memo = '') {
   log.debug(`background.addToAddressBook`)
 
   return (dispatch, getState) => {
-    const chainId = getState().metamask.network
+    const chainId = getState().iTrust.network
     background.setAddressBook(checksumAddress(recipient), nickname, chainId, memo, (err, set) => {
       if (err) {
         log.error(err)
@@ -2059,7 +2059,7 @@ function hideModal (payload) {
 
 function closeCurrentNotificationWindow () {
   return (dispatch, getState) => {
-    if (global.METAMASK_UI_TYPE === ENVIRONMENT_TYPE_NOTIFICATION &&
+    if (global.ITRUST_UI_TYPE === ENVIRONMENT_TYPE_NOTIFICATION &&
       !hasUnconfirmedTransactions(getState())) {
       global.platform.closeCurrentWindow()
 
@@ -2533,7 +2533,7 @@ function callBackgroundThenUpdateNoSpinner (method, ...args) {
       if (err) {
         return dispatch(actions.displayWarning(err.message))
       }
-      forceUpdateMetamaskState(dispatch)
+      forceupdateITrustState(dispatch)
     })
   }
 }
@@ -2546,12 +2546,12 @@ function callBackgroundThenUpdate (method, ...args) {
       if (err) {
         return dispatch(actions.displayWarning(err.message))
       }
-      forceUpdateMetamaskState(dispatch)
+      forceupdateITrustState(dispatch)
     })
   }
 }
 
-function forceUpdateMetamaskState (dispatch) {
+function forceupdateITrustState (dispatch) {
   log.debug(`background.getState`)
   return new Promise((resolve, reject) => {
     background.getState((err, newState) => {
@@ -2560,7 +2560,7 @@ function forceUpdateMetamaskState (dispatch) {
         return reject(err)
       }
 
-      dispatch(actions.updateMetamaskState(newState))
+      dispatch(actions.updateITrustState(newState))
       resolve(newState)
     })
   })
@@ -2771,7 +2771,7 @@ function getContractMethodData (data = '') {
   return (dispatch, getState) => {
     const prefixedData = ethUtil.addHexPrefix(data)
     const fourBytePrefix = prefixedData.slice(0, 10)
-    const { knownMethodData } = getState().metamask
+    const { knownMethodData } = getState().iTrust
     if (knownMethodData && knownMethodData[fourBytePrefix]) {
       return Promise.resolve(knownMethodData[fourBytePrefix])
     }
@@ -2804,7 +2804,7 @@ function loadingTokenParamsFinished () {
 
 function getTokenParams (tokenAddress) {
   return (dispatch, getState) => {
-    const existingTokens = getState().metamask.tokens
+    const existingTokens = getState().iTrust.tokens
     const existingToken = existingTokens.find(({ address }) => tokenAddress === address)
 
     if (existingToken) {
@@ -2841,7 +2841,7 @@ function setSeedPhraseBackedUp (seedPhraseBackupState) {
           dispatch(actions.displayWarning(err.message))
           return reject(err)
         }
-        return forceUpdateMetamaskState(dispatch)
+        return forceupdateITrustState(dispatch)
           .then(resolve)
           .catch(reject)
       })
@@ -2956,7 +2956,7 @@ function setNextNonce (nextNonce) {
 
 function getNextNonce () {
   return (dispatch, getState) => {
-    const address = getState().metamask.selectedAddress
+    const address = getState().iTrust.selectedAddress
     return new Promise((resolve, reject) => {
       background.getNextNonce(address, (err, nextNonce) => {
         if (err) {

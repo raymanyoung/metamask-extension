@@ -7,8 +7,8 @@ const firstTimeFlowTypeNameMap = {
   'import': 'New Wallet Imported',
 }
 
-const mapStateToProps = ({ metamask }) => {
-  const { firstTimeFlowType } = metamask
+const mapStateToProps = ({ iTrust }) => {
+  const { firstTimeFlowType } = iTrust
 
   return {
     completionMetaMetricsName: firstTimeFlowTypeNameMap[firstTimeFlowType],

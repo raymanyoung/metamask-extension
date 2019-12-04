@@ -4,8 +4,8 @@ import { compose } from 'recompose'
 import { closeWelcomeScreen } from '../../../store/actions'
 import Welcome from './welcome.component'
 
-const mapStateToProps = ({ metamask }) => {
-  const { welcomeScreenSeen, isInitialized, participateInMetaMetrics } = metamask
+const mapStateToProps = ({ iTrust }) => {
+  const { welcomeScreenSeen, isInitialized, participateInMetaMetrics } = iTrust
 
   return {
     welcomeScreenSeen,

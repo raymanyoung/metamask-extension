@@ -8,9 +8,9 @@ import Identicon from '../../ui/identicon'
 
 function mapStateToProps (state) {
   return {
-    network: state.metamask.network,
+    network: state.iTrust.network,
     token: state.appState.modal.modalState.props.token,
-    assetImages: state.metamask.assetImages,
+    assetImages: state.iTrust.assetImages,
   }
 }
 

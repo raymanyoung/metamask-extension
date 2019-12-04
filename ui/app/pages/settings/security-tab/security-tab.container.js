@@ -10,13 +10,13 @@ import {
 } from '../../../store/actions'
 
 const mapStateToProps = state => {
-  const { appState: { warning }, metamask } = state
+  const { appState: { warning }, iTrust } = state
   const {
     featureFlags: {
       showIncomingTransactions,
     } = {},
     participateInMetaMetrics,
-  } = metamask
+  } = iTrust
 
   return {
     warning,

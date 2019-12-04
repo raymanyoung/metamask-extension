@@ -17,19 +17,19 @@ function start () {
   document.getElementById('esdbLink').href = `https://etherscamdb.info/domain/${suspect.hostname}`
 
   global.platform = new ExtensionPlatform()
-  global.METAMASK_UI_TYPE = windowType
+  global.ITRUST_UI_TYPE = windowType
 
   const extensionPort = extension.runtime.connect({ name: windowType })
   const connectionStream = new PortStream(extensionPort)
   const mx = setupMultiplex(connectionStream)
-  setupControllerConnection(mx.createStream('controller'), (err, metaMaskController) => {
+  setupControllerConnection(mx.createStream('controller'), (err, iTrustController) => {
     if (err) {
       return
     }
 
     const continueLink = document.getElementById('unsafe-continue')
     continueLink.addEventListener('click', () => {
-      metaMaskController.whitelistPhishingDomain(suspect.hostname)
+      iTrustController.whitelistPhishingDomain(suspect.hostname)
       window.location.href = suspect.href
     })
   })

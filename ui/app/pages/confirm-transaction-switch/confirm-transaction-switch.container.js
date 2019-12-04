@@ -9,7 +9,7 @@ import {
 import { unconfirmedTransactionsListSelector } from '../../selectors/confirm-transaction'
 
 const mapStateToProps = (state, ownProps) => {
-  const { metamask: { unapprovedTxs } } = state
+  const { iTrust: { unapprovedTxs } } = state
   const { match: { params = {}, url } } = ownProps
   const urlId = url && url.match(/\d+/) && url.match(/\d+/)[0]
   const { id: paramsId } = params

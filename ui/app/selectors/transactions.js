@@ -15,26 +15,26 @@ import { getFastPriceEstimateInHexWEI } from './custom-gas'
 import { getSelectedToken } from './selectors'
 import txHelper from '../../lib/tx-helper'
 
-export const shapeShiftTxListSelector = state => state.metamask.shapeShiftTxList
+export const shapeShiftTxListSelector = state => state.iTrust.shapeShiftTxList
 
 export const incomingTxListSelector = state => {
-  const { showIncomingTransactions } = state.metamask.featureFlags
+  const { showIncomingTransactions } = state.iTrust.featureFlags
   if (!showIncomingTransactions) {
     return []
   }
 
-  const network = state.metamask.network
-  const selectedAddress = state.metamask.selectedAddress
-  return Object.values(state.metamask.incomingTransactions)
-    .filter(({ metamaskNetworkId, txParams }) => (
-      txParams.to === selectedAddress && metamaskNetworkId === network
+  const network = state.iTrust.network
+  const selectedAddress = state.iTrust.selectedAddress
+  return Object.values(state.iTrust.incomingTransactions)
+    .filter(({ iTrustNetworkId, txParams }) => (
+      txParams.to === selectedAddress && iTrustNetworkId === network
     ))
 }
-export const unapprovedMsgsSelector = state => state.metamask.unapprovedMsgs
-export const selectedAddressTxListSelector = state => state.metamask.selectedAddressTxList
-export const unapprovedPersonalMsgsSelector = state => state.metamask.unapprovedPersonalMsgs
-export const unapprovedTypedMessagesSelector = state => state.metamask.unapprovedTypedMessages
-export const networkSelector = state => state.metamask.network
+export const unapprovedMsgsSelector = state => state.iTrust.unapprovedMsgs
+export const selectedAddressTxListSelector = state => state.iTrust.selectedAddressTxList
+export const unapprovedPersonalMsgsSelector = state => state.iTrust.unapprovedPersonalMsgs
+export const unapprovedTypedMessagesSelector = state => state.iTrust.unapprovedTypedMessages
+export const networkSelector = state => state.iTrust.network
 
 export const unapprovedMessagesSelector = createSelector(
   unapprovedMsgsSelector,
@@ -307,7 +307,7 @@ export const submittedPendingTransactionsSelector = createSelector(
 )
 
 export const getTxParams = (state, selectedTransaction = {}) => {
-  const { metamask: { send } } = state
+  const { iTrust: { send } } = state
   const { txParams } = selectedTransaction
   return txParams || {
     from: send.from,

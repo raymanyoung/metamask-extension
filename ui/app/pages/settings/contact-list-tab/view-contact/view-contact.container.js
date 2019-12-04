@@ -18,7 +18,7 @@ const mapStateToProps = (state, ownProps) => {
   const pathNameTailIsAddress = pathNameTail.includes('0x')
   const address = pathNameTailIsAddress ? pathNameTail.toLowerCase() : ownProps.match.params.id
 
-  const { memo, name } = getAddressBookEntry(state, address) || state.metamask.identities[address]
+  const { memo, name } = getAddressBookEntry(state, address) || state.iTrust.identities[address]
 
   const showingMyAccounts = Boolean(pathname.match(CONTACT_MY_ACCOUNTS_VIEW_ROUTE))
 

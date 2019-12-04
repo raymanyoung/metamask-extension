@@ -9,7 +9,7 @@ const SET_THREEBOX_LAST_UPDATED = 'metamask/app/SET_THREEBOX_LAST_UPDATED'
 export default function reduceApp (state, action) {
   log.debug('App Reducer got ' + action.type)
   // clone and defaults
-  const selectedAddress = state.metamask.selectedAddress
+  const selectedAddress = state.iTrust.selectedAddress
   const hasUnconfActions = checkUnconfActions(state)
   let name = 'accounts'
   if (selectedAddress) {
@@ -474,7 +474,7 @@ export default function reduceApp (state, action) {
           warning: null,
           currentView: {
             name: 'accountDetail',
-            context: state.metamask.selectedAddress,
+            context: state.iTrust.selectedAddress,
           },
           accountDetail: {
             subview: 'transactions',
@@ -620,7 +620,7 @@ export default function reduceApp (state, action) {
           name: 'buyEth',
           context: appState.currentView.name,
         },
-        identity: state.metamask.identities[action.value],
+        identity: state.iTrust.identities[action.value],
         buyView: {
           subview: 'Coinbase',
           amount: '15.00',
@@ -639,7 +639,7 @@ export default function reduceApp (state, action) {
           name: 'onboardingBuyEth',
           context: appState.currentView.name,
         },
-        identity: state.metamask.identities[action.value],
+        identity: state.iTrust.identities[action.value],
       })
 
     case actions.COINBASE_SUBVIEW:
@@ -785,7 +785,7 @@ function checkUnconfActions (state) {
 
 function getUnconfActionList (state) {
   const { unapprovedTxs, unapprovedMsgs,
-    unapprovedPersonalMsgs, unapprovedTypedMessages, network } = state.metamask
+    unapprovedPersonalMsgs, unapprovedTypedMessages, network } = state.iTrust
 
   const unconfActionList = txHelper(unapprovedTxs, unapprovedMsgs, unapprovedPersonalMsgs, unapprovedTypedMessages, network)
   return unconfActionList

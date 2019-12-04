@@ -6,7 +6,7 @@ import { removeAccount } from '../../../../store/actions'
 
 const mapStateToProps = state => {
   return {
-    network: state.metamask.network,
+    network: state.iTrust.network,
   }
 }
 

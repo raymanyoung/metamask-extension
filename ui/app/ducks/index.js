@@ -28,7 +28,7 @@ function rootReducer (state, action) {
   // MetaMask
   //
 
-  state.metamask = reduceMetamask(state, action)
+  state.iTrust = reduceMetamask(state, action)
 
   //
   // AppState

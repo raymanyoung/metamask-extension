@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom'
 import { lockMetamask } from '../../store/actions'
 
 const mapStateToProps = state => {
-  const { metamask: { isUnlocked } } = state
+  const { iTrust: { isUnlocked } } = state
 
   return {
     isUnlocked,

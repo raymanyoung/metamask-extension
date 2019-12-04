@@ -27,21 +27,21 @@ const initialState = {
   fetchingData: false,
 }
 
-const UPDATE_TX_DATA = 'metamask/confirm-transaction/UPDATE_TX_DATA'
-const CLEAR_TX_DATA = 'metamask/confirm-transaction/CLEAR_TX_DATA'
-const UPDATE_TOKEN_DATA = 'metamask/confirm-transaction/UPDATE_TOKEN_DATA'
-const CLEAR_TOKEN_DATA = 'metamask/confirm-transaction/CLEAR_TOKEN_DATA'
-const UPDATE_METHOD_DATA = 'metamask/confirm-transaction/UPDATE_METHOD_DATA'
-const CLEAR_METHOD_DATA = 'metamask/confirm-transaction/CLEAR_METHOD_DATA'
-const UPDATE_TRANSACTION_AMOUNTS = 'metamask/confirm-transaction/UPDATE_TRANSACTION_AMOUNTS'
-const UPDATE_TRANSACTION_FEES = 'metamask/confirm-transaction/UPDATE_TRANSACTION_FEES'
-const UPDATE_TRANSACTION_TOTALS = 'metamask/confirm-transaction/UPDATE_TRANSACTION_TOTALS'
-const UPDATE_TOKEN_PROPS = 'metamask/confirm-transaction/UPDATE_TOKEN_PROPS'
-const UPDATE_NONCE = 'metamask/confirm-transaction/UPDATE_NONCE'
-const UPDATE_TO_SMART_CONTRACT = 'metamask/confirm-transaction/UPDATE_TO_SMART_CONTRACT'
-const FETCH_DATA_START = 'metamask/confirm-transaction/FETCH_DATA_START'
-const FETCH_DATA_END = 'metamask/confirm-transaction/FETCH_DATA_END'
-const CLEAR_CONFIRM_TRANSACTION = 'metamask/confirm-transaction/CLEAR_CONFIRM_TRANSACTION'
+const UPDATE_TX_DATA = 'iTrust/confirm-transaction/UPDATE_TX_DATA'
+const CLEAR_TX_DATA = 'iTrust/confirm-transaction/CLEAR_TX_DATA'
+const UPDATE_TOKEN_DATA = 'iTrust/confirm-transaction/UPDATE_TOKEN_DATA'
+const CLEAR_TOKEN_DATA = 'iTrust/confirm-transaction/CLEAR_TOKEN_DATA'
+const UPDATE_METHOD_DATA = 'iTrust/confirm-transaction/UPDATE_METHOD_DATA'
+const CLEAR_METHOD_DATA = 'iTrust/confirm-transaction/CLEAR_METHOD_DATA'
+const UPDATE_TRANSACTION_AMOUNTS = 'iTrust/confirm-transaction/UPDATE_TRANSACTION_AMOUNTS'
+const UPDATE_TRANSACTION_FEES = 'iTrust/confirm-transaction/UPDATE_TRANSACTION_FEES'
+const UPDATE_TRANSACTION_TOTALS = 'iTrust/confirm-transaction/UPDATE_TRANSACTION_TOTALS'
+const UPDATE_TOKEN_PROPS = 'iTrust/confirm-transaction/UPDATE_TOKEN_PROPS'
+const UPDATE_NONCE = 'iTrust/confirm-transaction/UPDATE_NONCE'
+const UPDATE_TO_SMART_CONTRACT = 'iTrust/confirm-transaction/UPDATE_TO_SMART_CONTRACT'
+const FETCH_DATA_START = 'iTrust/confirm-transaction/FETCH_DATA_START'
+const FETCH_DATA_END = 'iTrust/confirm-transaction/FETCH_DATA_END'
+const CLEAR_CONFIRM_TRANSACTION = 'iTrust/confirm-transaction/CLEAR_CONFIRM_TRANSACTION'
 
 describe('Confirm Transaction Duck', () => {
   describe('State changes', () => {
@@ -536,8 +536,8 @@ describe('Confirm Transaction Duck', () => {
             history: [],
             id: 2603411941761054,
             loadingDefaults: false,
-            metamaskNetworkId: '3',
-            origin: 'faucet.metamask.io',
+            iTrustNetworkId: '3',
+            origin: 'faucet.iTrust.io',
             simpleSend: true,
             status: 'unapproved',
             time: 1530838113716,
@@ -570,8 +570,8 @@ describe('Confirm Transaction Duck', () => {
         history: [],
         id: 2603411941761054,
         loadingDefaults: false,
-        metamaskNetworkId: '3',
-        origin: 'faucet.metamask.io',
+        iTrustNetworkId: '3',
+        origin: 'faucet.iTrust.io',
         simpleSend: true,
         status: 'unapproved',
         time: 1530838113716,
@@ -644,8 +644,8 @@ describe('Confirm Transaction Duck', () => {
               history: [],
               id: 2603411941761054,
               loadingDefaults: false,
-              metamaskNetworkId: '3',
-              origin: 'faucet.metamask.io',
+              iTrustNetworkId: '3',
+              origin: 'faucet.iTrust.io',
               simpleSend: true,
               status: 'unapproved',
               time: 1530838113716,

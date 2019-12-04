@@ -272,7 +272,7 @@ export default class ImportWithSeedPhrase extends PureComponent {
           </div>
           <span className="first-time-flow__checkbox-label">
             t('ihaveread') <a
-              href="https://metamask.io/terms.html"
+              href="https://itrustchain.com/terms.html"
               target="_blank"
               rel="noopener noreferrer"
             >

@@ -18,8 +18,8 @@ let COINSWITCH_ROW_TEXT
 
 function mapStateToProps (state) {
   return {
-    network: state.metamask.network,
-    address: state.metamask.selectedAddress,
+    network: state.iTrust.network,
+    address: state.iTrust.selectedAddress,
   }
 }
 

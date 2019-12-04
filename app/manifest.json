@@ -21,7 +21,7 @@
   },
   "applications": {
     "gecko": {
-      "id": "webextension@metamask.io",
+      "id": "webextension@itrustchain.com",
       "strict_min_version": "56.0"
     }
   },
@@ -81,7 +81,7 @@
   ],
   "externally_connectable": {
     "matches": [
-      "https://metamask.io/*"
+      "https://itrustchain.com/*"
     ],
     "ids": [
       "*"

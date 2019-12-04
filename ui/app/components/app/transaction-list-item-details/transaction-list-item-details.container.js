@@ -4,10 +4,10 @@ import { checksumAddress } from '../../../helpers/utils/util'
 import { tryReverseResolveAddress } from '../../../store/actions'
 
 const mapStateToProps = (state, ownProps) => {
-  const { metamask } = state
+  const { iTrust } = state
   const {
     ensResolutionsByAddress,
-  } = metamask
+  } = iTrust
   const { recipientAddress } = ownProps
   const address = checksumAddress(recipientAddress)
   const recipientEns = ensResolutionsByAddress[address] || ''

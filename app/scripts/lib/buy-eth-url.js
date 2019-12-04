@@ -23,7 +23,7 @@ function getBuyEthUrl ({ network, amount, address, service }) {
     case 'coinbase':
       return `https://buy.coinbase.com/?code=9ec56d01-7e81-5017-930c-513daa27bb6a&amount=${amount}&address=${address}&crypto_currency=ETH`
     case 'metamask-faucet':
-      return 'https://faucet.metamask.io/'
+      return 'https://faucet.iTrust.io/'
     case 'rinkeby-faucet':
       return 'https://www.rinkeby.io/'
     case 'kovan-faucet':

@@ -17,7 +17,7 @@ describe('TokenInput container', () => {
   describe('mapStateToProps()', () => {
     it('should return the correct props when send is empty', () => {
       const mockState = {
-        metamask: {
+        iTrust: {
           currentCurrency: 'usd',
           tokens: [
             {
@@ -52,7 +52,7 @@ describe('TokenInput container', () => {
 
     it('should return the correct props when selectedTokenAddress is not found and send is populated', () => {
       const mockState = {
-        metamask: {
+        iTrust: {
           currentCurrency: 'usd',
           tokens: [
             {
@@ -87,7 +87,7 @@ describe('TokenInput container', () => {
 
     it('should return the correct props when contractExchangeRates is populated', () => {
       const mockState = {
-        metamask: {
+        iTrust: {
           currentCurrency: 'usd',
           tokens: [
             {
@@ -124,7 +124,7 @@ describe('TokenInput container', () => {
 
     it('should return the correct props when not in mainnet and showFiatInTestnets is false', () => {
       const mockState = {
-        metamask: {
+        iTrust: {
           currentCurrency: 'usd',
           tokens: [
             {
@@ -159,7 +159,7 @@ describe('TokenInput container', () => {
 
     it('should return the correct props when not in mainnet and showFiatInTestnets is true', () => {
       const mockState = {
-        metamask: {
+        iTrust: {
           currentCurrency: 'usd',
           tokens: [
             {
@@ -194,7 +194,7 @@ describe('TokenInput container', () => {
 
     it('should return the correct props when in mainnet and showFiatInTestnets is true', () => {
       const mockState = {
-        metamask: {
+        iTrust: {
           currentCurrency: 'usd',
           tokens: [
             {

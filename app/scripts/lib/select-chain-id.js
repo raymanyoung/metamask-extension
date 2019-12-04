@@ -16,8 +16,8 @@ const standardNetworkId = {
   '1256': ITRUST_CHAIN_ID,
 }
 
-function selectChainId (metamaskState) {
-  const { network, provider: { chaindId } } = metamaskState
+function selectChainId (iTrustState) {
+  const { network, provider: { chaindId } } = iTrustState
   return standardNetworkId[network] || `0x${parseInt(chaindId, 10).toString(16)}`
 }
 

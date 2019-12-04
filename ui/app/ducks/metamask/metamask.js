@@ -10,12 +10,12 @@ function reduceMetamask (state, action) {
   let newState
 
   // clone + defaults
-  var metamaskState = extend({
+  var iTrustState = extend({
     isInitialized: false,
     isUnlocked: false,
     isAccountMenuOpen: false,
     isPopup: getEnvironmentType(window.location.href) === ENVIRONMENT_TYPE_POPUP,
-    rpcTarget: 'https://rawtestrpc.metamask.io/',
+    rpcTarget: 'https://rawtestrpc.iTrust.io/',
     identities: {},
     unapprovedTxs: {},
     frequentRpcList: [],
@@ -59,32 +59,32 @@ function reduceMetamask (state, action) {
     participateInMetaMetrics: null,
     metaMetricsSendCount: 0,
     nextNonce: null,
-  }, state.metamask)
+  }, state.iTrust)
 
   switch (action.type) {
 
     case actions.UPDATE_METAMASK_STATE:
-      return extend(metamaskState, action.value)
+      return extend(iTrustState, action.value)
 
     case actions.UNLOCK_METAMASK:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         isUnlocked: true,
         isInitialized: true,
         selectedAddress: action.value,
       })
 
     case actions.LOCK_METAMASK:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         isUnlocked: false,
       })
 
     case actions.SET_RPC_LIST:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         frequentRpcList: action.value,
       })
 
     case actions.SET_RPC_TARGET:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         provider: {
           type: 'rpc',
           rpcTarget: action.value,
@@ -92,7 +92,7 @@ function reduceMetamask (state, action) {
       })
 
     case actions.SET_PROVIDER_TYPE:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         provider: {
           type: action.value,
         },
@@ -100,32 +100,32 @@ function reduceMetamask (state, action) {
 
     case actions.COMPLETED_TX:
       var stringId = String(action.id)
-      newState = extend(metamaskState, {
+      newState = extend(iTrustState, {
         unapprovedTxs: {},
         unapprovedMsgs: {},
       })
-      for (const id in metamaskState.unapprovedTxs) {
+      for (const id in iTrustState.unapprovedTxs) {
         if (id !== stringId) {
-          newState.unapprovedTxs[id] = metamaskState.unapprovedTxs[id]
+          newState.unapprovedTxs[id] = iTrustState.unapprovedTxs[id]
         }
       }
-      for (const id in metamaskState.unapprovedMsgs) {
+      for (const id in iTrustState.unapprovedMsgs) {
         if (id !== stringId) {
-          newState.unapprovedMsgs[id] = metamaskState.unapprovedMsgs[id]
+          newState.unapprovedMsgs[id] = iTrustState.unapprovedMsgs[id]
         }
       }
       return newState
 
     case actions.EDIT_TX:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         send: {
-          ...metamaskState.send,
+          ...iTrustState.send,
           editingTransactionId: action.value,
         },
       })
 
     case actions.CLEAR_SEED_WORD_CACHE:
-      newState = extend(metamaskState, {
+      newState = extend(iTrustState, {
         isUnlocked: true,
         isInitialized: true,
         selectedAddress: action.value,
@@ -133,7 +133,7 @@ function reduceMetamask (state, action) {
       return newState
 
     case actions.SHOW_ACCOUNT_DETAIL:
-      newState = extend(metamaskState, {
+      newState = extend(iTrustState, {
         isUnlocked: true,
         isInitialized: true,
         selectedAddress: action.value,
@@ -141,12 +141,12 @@ function reduceMetamask (state, action) {
       return newState
 
     case actions.SET_SELECTED_TOKEN:
-      newState = extend(metamaskState, {
+      newState = extend(iTrustState, {
         selectedTokenAddress: action.value,
       })
-      const newSend = extend(metamaskState.send)
+      const newSend = extend(iTrustState.send)
 
-      if (metamaskState.send.editingTransactionId && !action.value) {
+      if (iTrustState.send.editingTransactionId && !action.value) {
         delete newSend.token
         const unapprovedTx = newState.unapprovedTxs[newSend.editingTransactionId] || {}
         const txParams = unapprovedTx.txParams || {}
@@ -166,140 +166,140 @@ function reduceMetamask (state, action) {
       const account = action.value.account
       const name = action.value.label
       const id = {}
-      id[account] = extend(metamaskState.identities[account], { name })
-      const identities = extend(metamaskState.identities, id)
-      return extend(metamaskState, { identities })
+      id[account] = extend(iTrustState.identities[account], { name })
+      const identities = extend(iTrustState.identities, id)
+      return extend(iTrustState, { identities })
 
     case actions.SET_CURRENT_FIAT:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         currentCurrency: action.value.currentCurrency,
         conversionRate: action.value.conversionRate,
         conversionDate: action.value.conversionDate,
       })
 
     case actions.UPDATE_TOKENS:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         tokens: action.newTokens,
       })
 
     // metamask.send
     case actions.UPDATE_GAS_LIMIT:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         send: {
-          ...metamaskState.send,
+          ...iTrustState.send,
           gasLimit: action.value,
         },
       })
     case actions.UPDATE_CUSTOM_NONCE:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         customNonceValue: action.value,
       })
     case actions.UPDATE_GAS_PRICE:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         send: {
-          ...metamaskState.send,
+          ...iTrustState.send,
           gasPrice: action.value,
         },
       })
 
     case actions.TOGGLE_ACCOUNT_MENU:
-      return extend(metamaskState, {
-        isAccountMenuOpen: !metamaskState.isAccountMenuOpen,
+      return extend(iTrustState, {
+        isAccountMenuOpen: !iTrustState.isAccountMenuOpen,
       })
 
     case actions.UPDATE_GAS_TOTAL:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         send: {
-          ...metamaskState.send,
+          ...iTrustState.send,
           gasTotal: action.value,
         },
       })
 
     case actions.UPDATE_SEND_TOKEN_BALANCE:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         send: {
-          ...metamaskState.send,
+          ...iTrustState.send,
           tokenBalance: action.value,
         },
       })
 
     case actions.UPDATE_SEND_HEX_DATA:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         send: {
-          ...metamaskState.send,
+          ...iTrustState.send,
           data: action.value,
         },
       })
 
     case actions.UPDATE_SEND_FROM:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         send: {
-          ...metamaskState.send,
+          ...iTrustState.send,
           from: action.value,
         },
       })
 
     case actions.UPDATE_SEND_TO:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         send: {
-          ...metamaskState.send,
+          ...iTrustState.send,
           to: action.value.to,
           toNickname: action.value.nickname,
         },
       })
 
     case actions.UPDATE_SEND_AMOUNT:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         send: {
-          ...metamaskState.send,
+          ...iTrustState.send,
           amount: action.value,
         },
       })
 
     case actions.UPDATE_SEND_MEMO:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         send: {
-          ...metamaskState.send,
+          ...iTrustState.send,
           memo: action.value,
         },
       })
 
     case actions.UPDATE_MAX_MODE:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         send: {
-          ...metamaskState.send,
+          ...iTrustState.send,
           maxModeOn: action.value,
         },
       })
 
     case actions.UPDATE_SEND:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         send: {
-          ...metamaskState.send,
+          ...iTrustState.send,
           ...action.value,
         },
       })
 
     case actions.UPDATE_SEND_ENS_RESOLUTION:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         send: {
-          ...metamaskState.send,
+          ...iTrustState.send,
           ensResolution: action.payload,
           ensResolutionError: '',
         },
       })
 
     case actions.UPDATE_SEND_ENS_RESOLUTION_ERROR:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         send: {
-          ...metamaskState.send,
+          ...iTrustState.send,
           ensResolution: null,
           ensResolutionError: action.payload,
         },
       })
 
     case actions.CLEAR_SEND:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         send: {
           gasLimit: null,
           gasPrice: null,
@@ -319,7 +319,7 @@ function reduceMetamask (state, action) {
 
     case actions.UPDATE_TRANSACTION_PARAMS:
       const { id: txId, value } = action
-      let { selectedAddressTxList } = metamaskState
+      let { selectedAddressTxList } = iTrustState
       selectedAddressTxList = selectedAddressTxList.map(tx => {
         if (tx.id === txId) {
           tx.txParams = value
@@ -327,104 +327,104 @@ function reduceMetamask (state, action) {
         return tx
       })
 
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         selectedAddressTxList,
       })
 
     case actions.PAIR_UPDATE:
       const { value: { marketinfo: pairMarketInfo } } = action
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         tokenExchangeRates: {
-          ...metamaskState.tokenExchangeRates,
+          ...iTrustState.tokenExchangeRates,
           [pairMarketInfo.pair]: pairMarketInfo,
         },
       })
 
     case actions.SHAPESHIFT_SUBVIEW:
       const { value: { marketinfo: ssMarketInfo, coinOptions } } = action
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         tokenExchangeRates: {
-          ...metamaskState.tokenExchangeRates,
+          ...iTrustState.tokenExchangeRates,
           [ssMarketInfo.pair]: ssMarketInfo,
         },
         coinOptions,
       })
 
     case actions.SET_PARTICIPATE_IN_METAMETRICS:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         participateInMetaMetrics: action.value,
       })
 
     case actions.SET_METAMETRICS_SEND_COUNT:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         metaMetricsSendCount: action.value,
       })
 
     case actions.SET_USE_BLOCKIE:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         useBlockie: action.value,
       })
 
     case actions.UPDATE_FEATURE_FLAGS:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         featureFlags: action.value,
       })
 
     case actions.UPDATE_NETWORK_ENDPOINT_TYPE:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         networkEndpointType: action.value,
       })
 
     case actions.CLOSE_WELCOME_SCREEN:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         welcomeScreenSeen: true,
       })
 
     case actions.SET_CURRENT_LOCALE:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         currentLocale: action.value.locale,
       })
 
     case actions.SET_PENDING_TOKENS:
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         pendingTokens: { ...action.payload },
       })
 
     case actions.CLEAR_PENDING_TOKENS: {
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         pendingTokens: {},
       })
     }
 
     case actions.UPDATE_PREFERENCES: {
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         preferences: {
-          ...metamaskState.preferences,
+          ...iTrustState.preferences,
           ...action.payload,
         },
       })
     }
 
     case actions.COMPLETE_ONBOARDING: {
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         completedOnboarding: true,
       })
     }
 
     case actions.SET_FIRST_TIME_FLOW_TYPE: {
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         firstTimeFlowType: action.value,
       })
     }
 
     case actions.SET_NEXT_NONCE: {
-      return extend(metamaskState, {
+      return extend(iTrustState, {
         nextNonce: action.value,
       })
     }
 
     default:
-      return metamaskState
+      return iTrustState
 
   }
 }

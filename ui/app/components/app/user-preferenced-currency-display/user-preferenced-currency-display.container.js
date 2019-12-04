@@ -15,7 +15,7 @@ const mapStateToProps = (state) => {
     useNativeCurrencyAsPrimaryCurrency,
     showFiatInTestnets,
     isMainnet,
-    nativeCurrency: state.metamask.nativeCurrency,
+    nativeCurrency: state.iTrust.nativeCurrency,
   }
 }
 

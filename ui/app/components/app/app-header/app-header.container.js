@@ -6,7 +6,7 @@ import AppHeader from './app-header.component'
 const actions = require('../../../store/actions')
 
 const mapStateToProps = state => {
-  const { appState, metamask } = state
+  const { appState, iTrust } = state
   const { networkDropdownOpen } = appState
   const {
     network,
@@ -14,7 +14,7 @@ const mapStateToProps = state => {
     selectedAddress,
     isUnlocked,
     isAccountMenuOpen,
-  } = metamask
+  } = iTrust
 
   return {
     networkDropdownOpen,

@@ -9,7 +9,7 @@ const firstTimeFlowTypeNameMap = {
 }
 
 const mapStateToProps = (state) => {
-  const { firstTimeFlowType, participateInMetaMetrics } = state.metamask
+  const { firstTimeFlowType, participateInMetaMetrics } = state.iTrust
 
   return {
     nextRoute: getFirstTimeFlowTypeRoute(state),

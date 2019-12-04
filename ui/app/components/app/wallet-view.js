@@ -33,14 +33,14 @@ WalletView.defaultProps = {
 function mapStateToProps (state) {
 
   return {
-    network: state.metamask.network,
+    network: state.iTrust.network,
     sidebarOpen: state.appState.sidebar.isOpen,
-    identities: state.metamask.identities,
+    identities: state.iTrust.identities,
     accounts: selectors.getMetaMaskAccounts(state),
-    keyrings: state.metamask.keyrings,
+    keyrings: state.iTrust.keyrings,
     selectedAddress: selectors.getSelectedAddress(state),
     selectedAccount: selectors.getSelectedAccount(state),
-    selectedTokenAddress: state.metamask.selectedTokenAddress,
+    selectedTokenAddress: state.iTrust.selectedTokenAddress,
   }
 }
 

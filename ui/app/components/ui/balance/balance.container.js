@@ -14,8 +14,8 @@ const mapStateToProps = state => {
   const { showFiatInTestnets } = preferencesSelector(state)
   const isMainnet = getIsMainnet(state)
   const accounts = getMetaMaskAccounts(state)
-  const network = state.metamask.network
-  const selectedAddress = state.metamask.selectedAddress || Object.keys(accounts)[0]
+  const network = state.iTrust.network
+  const selectedAddress = state.iTrust.selectedAddress || Object.keys(accounts)[0]
   const account = accounts[selectedAddress]
 
   return {

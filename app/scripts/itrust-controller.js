@@ -1,7 +1,6 @@
 /**
- * @file      The central metamask controller. Aggregates other controllers and exports an api.
- * @copyright Copyright (c) 2018 MetaMask
- * @license   MIT
+ * @file      The central iTrust controller. Aggregates other controllers and exports an api.
+ * @copyright Copyright (c) 2019 iTrust
  */
 
 const EventEmitter = require('events')
@@ -65,7 +64,7 @@ const {
 } = require('gaba')
 const backEndMetaMetricsEvent = require('./lib/backend-metametrics')
 
-module.exports = class MetamaskController extends EventEmitter {
+module.exports = class ITrustController extends EventEmitter {
 
   /**
    * @constructor
@@ -82,7 +81,7 @@ module.exports = class MetamaskController extends EventEmitter {
     this.recordFirstTimeInfo(initState)
 
     // this keeps track of how many "controllerStream" connections are open
-    // the only thing that uses controller connections are open metamask UI instances
+    // the only thing that uses controller connections are open itrust UI instances
     this.activeControllerConnections = 0
 
     // platform-specific api
@@ -235,8 +234,8 @@ module.exports = class MetamaskController extends EventEmitter {
         const { txReceipt } = txMeta
         const participateInMetaMetrics = this.preferencesController.getParticipateInMetaMetrics()
         if (txReceipt && txReceipt.status === '0x0' && participateInMetaMetrics) {
-          const metamaskState = await this.getState()
-          backEndMetaMetricsEvent(metamaskState, {
+          const iTrustState = await this.getState()
+          backEndMetaMetricsEvent(iTrustState, {
             customVariables: {
               errorMessage: txMeta.simulationFails.reason,
             },
@@ -334,7 +333,7 @@ module.exports = class MetamaskController extends EventEmitter {
     const providerOpts = {
       static: {
         eth_syncing: false,
-        web3_clientVersion: `MetaMask/v${version}`,
+        web3_clientVersion: `iTrust/v${version}`,
       },
       version,
       // account mgmt
@@ -342,7 +341,7 @@ module.exports = class MetamaskController extends EventEmitter {
         // Expose no accounts if this origin has not been approved, preventing
         // account-requring RPC methods from completing successfully
         const exposeAccounts = this.providerApprovalController.shouldExposeAccounts(origin)
-        if (origin !== 'metamask' && !exposeAccounts) { return [] }
+        if (origin !== 'itrust' && !exposeAccounts) { return [] }
         const isUnlocked = this.keyringController.memStore.getState().isUnlocked
         const selectedAddress = this.preferencesController.getSelectedAddress()
         // only show address if account is unlocked
@@ -372,7 +371,7 @@ module.exports = class MetamaskController extends EventEmitter {
    * This store is used to make some config info available to Dapps synchronously.
    */
   createPublicConfigStore ({ checkIsEnabled }) {
-    // subset of state for metamask inpage provider
+    // subset of state for iTrust inpage provider
     const publicConfigStore = new ObservableStore()
 
     // setup memStore subscription hooks
@@ -410,7 +409,7 @@ module.exports = class MetamaskController extends EventEmitter {
   //=============================================================================
 
   /**
-   * The metamask-state of the various controllers, made available to the UI
+   * The iTrust-state of the various controllers, made available to the UI
    *
    * @returns {Object} status
    */
@@ -628,7 +627,7 @@ module.exports = class MetamaskController extends EventEmitter {
 
       const primaryKeyring = keyringController.getKeyringsByType('HD Key Tree')[0]
       if (!primaryKeyring) {
-        throw new Error('MetamaskController - No HD Key Tree found')
+        throw new Error('iTrustController - No HD Key Tree found')
       }
 
       // seek out the first zero balance
@@ -811,7 +810,7 @@ module.exports = class MetamaskController extends EventEmitter {
         keyringName = LedgerBridgeKeyring.type
         break
       default:
-        throw new Error('MetamaskController:getKeyringForDevice - Unknown device')
+        throw new Error('iTrustController:getKeyringForDevice - Unknown device')
     }
     let keyring = await this.keyringController.getKeyringsByType(keyringName)[0]
     if (!keyring) {
@@ -915,7 +914,7 @@ module.exports = class MetamaskController extends EventEmitter {
   async addNewAccount () {
     const primaryKeyring = this.keyringController.getKeyringsByType('HD Key Tree')[0]
     if (!primaryKeyring) {
-      throw new Error('MetamaskController - No HD Key Tree found')
+      throw new Error('iTrustController - No HD Key Tree found')
     }
     const keyringController = this.keyringController
     const oldAccounts = await keyringController.getAccounts()
@@ -948,7 +947,7 @@ module.exports = class MetamaskController extends EventEmitter {
 
     const primaryKeyring = this.keyringController.getKeyringsByType('HD Key Tree')[0]
     if (!primaryKeyring) {
-      throw new Error('MetamaskController - No HD Key Tree found')
+      throw new Error('iTrustController - No HD Key Tree found')
     }
 
     const serialized = await primaryKeyring.serialize()
@@ -956,7 +955,7 @@ module.exports = class MetamaskController extends EventEmitter {
 
     const accounts = await primaryKeyring.getAccounts()
     if (accounts.length < 1) {
-      throw new Error('MetamaskController - No accounts found')
+      throw new Error('iTrustController - No accounts found')
     }
 
     try {
@@ -1061,11 +1060,11 @@ module.exports = class MetamaskController extends EventEmitter {
    * @returns {Promise<Object>} Full state update.
    */
   signMessage (msgParams) {
-    log.info('MetaMaskController - signMessage')
-    const msgId = msgParams.metamaskId
+    log.info('ITrustController - signMessage')
+    const msgId = msgParams.iTrustId
 
     // sets the status op the message to 'approved'
-    // and removes the metamaskId for signing
+    // and removes the iTrustId for signing
     return this.messageManager.approveMessage(msgParams)
       .then((cleanMsgParams) => {
       // signs the message
@@ -1120,10 +1119,10 @@ module.exports = class MetamaskController extends EventEmitter {
    * @returns {Promise<Object>} - A full state update.
    */
   signPersonalMessage (msgParams) {
-    log.info('MetaMaskController - signPersonalMessage')
-    const msgId = msgParams.metamaskId
+    log.info('ITrustController - signPersonalMessage')
+    const msgId = msgParams.iTrustId
     // sets the status op the message to 'approved'
-    // and removes the metamaskId for signing
+    // and removes the iTrustId for signing
     return this.personalMessageManager.approveMessage(msgParams)
       .then((cleanMsgParams) => {
       // signs the message
@@ -1173,8 +1172,8 @@ module.exports = class MetamaskController extends EventEmitter {
    * @returns {Object} Full state update.
    */
   async signTypedMessage (msgParams) {
-    log.info('MetaMaskController - eth_signTypedData')
-    const msgId = msgParams.metamaskId
+    log.info('ITrustController - eth_signTypedData')
+    const msgId = msgParams.iTrustId
     const version = msgParams.version
     try {
       const cleanMsgParams = await this.typedMessageManager.approveMessage(msgParams)
@@ -1191,7 +1190,7 @@ module.exports = class MetamaskController extends EventEmitter {
       this.typedMessageManager.setMsgStatusSigned(msgId, signature)
       return this.getState()
     } catch (error) {
-      log.info('MetaMaskController - eth_signTypedData failed.', error)
+      log.info('ITrustController - eth_signTypedData failed.', error)
       this.typedMessageManager.errorMessage(msgId, error)
     }
   }
@@ -1210,14 +1209,11 @@ module.exports = class MetamaskController extends EventEmitter {
   }
 
   // ---------------------------------------------------------------------------
-  // MetaMask Version 3 Migration Account Restauration Methods
+  // Version 3 Migration Account Restauration Methods
 
   /**
    * A legacy method (probably dead code) that was used when we swapped out our
    * key management library that we depended on.
-   *
-   * Described in:
-   * https://medium.com/metamask/metamask-3-migration-guide-914b79533cdd
    *
    * @deprecated
    * @param  {} migratorOutput
@@ -1268,7 +1264,7 @@ module.exports = class MetamaskController extends EventEmitter {
    * transaction.
    * @param {number} originalTxId - the id of the txMeta that you want to attempt to cancel
    * @param {string=} customGasPrice - the hex value to use for the cancel transaction
-   * @returns {object} MetaMask state
+   * @returns {object} iTrust state
    */
   async createCancelTransaction (originalTxId, customGasPrice) {
     try {
@@ -1338,7 +1334,7 @@ module.exports = class MetamaskController extends EventEmitter {
   setupUntrustedCommunication (connectionStream, senderUrl, extensionId) {
     // Check if new connection is blacklisted
     if (this.phishingController.test(senderUrl.hostname)) {
-      log.debug('MetaMask - sending phishing warning for', senderUrl.hostname)
+      log.debug('iTrust - sending phishing warning for', senderUrl.hostname)
       this.sendPhishingWarning(connectionStream, senderUrl.hostname)
       return
     }
@@ -1478,7 +1474,7 @@ module.exports = class MetamaskController extends EventEmitter {
       extensionId,
       getSiteMetadata,
     }))
-    // forward to metamask primary provider
+    // forward to itrust primary provider
     engine.push(providerAsMiddleware(provider))
     return engine
   }
@@ -1573,7 +1569,7 @@ module.exports = class MetamaskController extends EventEmitter {
   }
 
   /**
-   * A method for emitting the full MetaMask state to all registered listeners.
+   * A method for emitting the full iTrust state to all registered listeners.
    * @private
    */
   privateSendUpdate () {
@@ -1655,8 +1651,6 @@ module.exports = class MetamaskController extends EventEmitter {
    */
   setCurrentCurrency (currencyCode, cb) {
     const { ticker } = this.networkController.getNetworkConfig()
-    console.log("in metamask controller, print network config")
-    console.log(ticker)
     try {
       const currencyState = {
         nativeCurrency: ticker,
@@ -1839,7 +1833,7 @@ module.exports = class MetamaskController extends EventEmitter {
 
   // TODO: Replace isClientOpen methods with `controllerConnectionChanged` events.
   /**
-   * A method for recording whether the MetaMask user interface is open or not.
+   * A method for recording whether the iTrust user interface is open or not.
    * @private
    * @param {boolean} open
    */
@@ -1877,7 +1871,7 @@ module.exports = class MetamaskController extends EventEmitter {
   }
 
   /**
-   * Locks MetaMask
+   * Locks iTrust
    */
   setLocked () {
     return this.keyringController.setLocked()

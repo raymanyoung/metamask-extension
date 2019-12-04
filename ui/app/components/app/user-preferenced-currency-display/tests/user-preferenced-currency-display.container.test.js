@@ -17,7 +17,7 @@ describe('UserPreferencedCurrencyDisplay container', () => {
   describe('mapStateToProps()', () => {
     it('should return the correct props', () => {
       const mockState = {
-        metamask: {
+        iTrust: {
           nativeCurrency: 'ETH',
           preferences: {
             useNativeCurrencyAsPrimaryCurrency: true,
@@ -39,7 +39,7 @@ describe('UserPreferencedCurrencyDisplay container', () => {
 
     it('should return the correct props when not in mainnet and showFiatInTestnets is true', () => {
       const mockState = {
-        metamask: {
+        iTrust: {
           nativeCurrency: 'ETH',
           preferences: {
             useNativeCurrencyAsPrimaryCurrency: true,

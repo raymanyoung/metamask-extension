@@ -8,11 +8,11 @@ const {
 const inDevelopment = process.env.NODE_ENV === 'development'
 
 const METAMETRICS_TRACKING_URL = inDevelopment
-  ? 'http://www.metamask.io/metametrics'
-  : 'http://www.metamask.io/metametrics-prod'
+  ? 'http://www.iTrust.io/metametrics'
+  : 'http://www.iTrust.io/metametrics-prod'
 
-function backEndMetaMetricsEvent (metaMaskState, eventData) {
-  const stateEventData = getMetaMetricState({ metamask: metaMaskState })
+function backEndMetaMetricsEvent (iTrustState, eventData) {
+  const stateEventData = getMetaMetricState({ iTrust: iTrustState })
 
   if (stateEventData.participateInMetaMetrics) {
     sendMetaMetricsEvent({

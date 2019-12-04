@@ -45,11 +45,11 @@ proxyquire('../gas-modal-page-container.container.js', {
   '../../../../ducks/confirm-transaction/confirm-transaction.duck': confirmTransactionActionSpies,
   '../../../../ducks/send/send.duck': sendActionSpies,
   '../../../../selectors/selectors.js': {
-    getCurrentEthBalance: (state) => state.metamask.balance || '0x0',
+    getCurrentEthBalance: (state) => state.iTrust.balance || '0x0',
     getSelectedToken: () => null,
   },
   '../../../../pages/send/send.selectors': {
-    getTokenBalance: (state) => state.metamask.send.tokenBalance || '0x0',
+    getTokenBalance: (state) => state.iTrust.send.tokenBalance || '0x0',
   },
 })
 
@@ -70,7 +70,7 @@ describe('gas-modal-page-container container', () => {
             },
           },
         },
-        metamask: {
+        iTrust: {
           send: {
             gasLimit: '16',
             gasPrice: '32',
@@ -173,7 +173,7 @@ describe('gas-modal-page-container container', () => {
         { mockState: baseMockState, expectedResult: baseExpectedResult, mockOwnProps: baseMockOwnProps },
         {
           mockState: Object.assign({}, baseMockState, {
-            metamask: { ...baseMockState.metamask, balance: '0xfffffffffffffffffffff' },
+            iTrust: { ...baseMockState.iTrust, balance: '0xfffffffffffffffffffff' },
           }),
           expectedResult: Object.assign({}, baseExpectedResult, { balance: '0xfffffffffffffffffffff', insufficientBalance: false }),
           mockOwnProps: baseMockOwnProps,
@@ -187,14 +187,14 @@ describe('gas-modal-page-container container', () => {
         },
         {
           mockState: Object.assign({}, baseMockState, {
-            metamask: {
-              ...baseMockState.metamask,
+            iTrust: {
+              ...baseMockState.iTrust,
               preferences: {
-                ...baseMockState.metamask.preferences,
+                ...baseMockState.iTrust.preferences,
                 showFiatInTestnets: false,
               },
               provider: {
-                ...baseMockState.metamask.provider,
+                ...baseMockState.iTrust.provider,
                 type: 'rinkeby',
               },
             },
@@ -211,14 +211,14 @@ describe('gas-modal-page-container container', () => {
         },
         {
           mockState: Object.assign({}, baseMockState, {
-            metamask: {
-              ...baseMockState.metamask,
+            iTrust: {
+              ...baseMockState.iTrust,
               preferences: {
-                ...baseMockState.metamask.preferences,
+                ...baseMockState.iTrust.preferences,
                 showFiatInTestnets: true,
               },
               provider: {
-                ...baseMockState.metamask.provider,
+                ...baseMockState.iTrust.provider,
                 type: 'rinkeby',
               },
             },
@@ -231,14 +231,14 @@ describe('gas-modal-page-container container', () => {
         },
         {
           mockState: Object.assign({}, baseMockState, {
-            metamask: {
-              ...baseMockState.metamask,
+            iTrust: {
+              ...baseMockState.iTrust,
               preferences: {
-                ...baseMockState.metamask.preferences,
+                ...baseMockState.iTrust.preferences,
                 showFiatInTestnets: true,
               },
               provider: {
-                ...baseMockState.metamask.provider,
+                ...baseMockState.iTrust.provider,
                 type: 'mainnet',
               },
             },

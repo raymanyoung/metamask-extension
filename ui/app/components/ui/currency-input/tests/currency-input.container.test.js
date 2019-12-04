@@ -20,7 +20,7 @@ describe('CurrencyInput container', () => {
       {
         comment: 'should return correct props in mainnet',
         mockState: {
-          metamask: {
+          iTrust: {
             conversionRate: 280.45,
             currentCurrency: 'usd',
             nativeCurrency: 'ETH',
@@ -47,7 +47,7 @@ describe('CurrencyInput container', () => {
       {
         comment: 'should return correct props when not in mainnet and showFiatInTestnets is false',
         mockState: {
-          metamask: {
+          iTrust: {
             conversionRate: 280.45,
             currentCurrency: 'usd',
             nativeCurrency: 'ETH',
@@ -74,7 +74,7 @@ describe('CurrencyInput container', () => {
       {
         comment: 'should return correct props when not in mainnet and showFiatInTestnets is true',
         mockState: {
-          metamask: {
+          iTrust: {
             conversionRate: 280.45,
             currentCurrency: 'usd',
             nativeCurrency: 'ETH',
@@ -101,7 +101,7 @@ describe('CurrencyInput container', () => {
       {
         comment: 'should return correct props when in mainnet and showFiatInTestnets is true',
         mockState: {
-          metamask: {
+          iTrust: {
             conversionRate: 280.45,
             currentCurrency: 'usd',
             nativeCurrency: 'ETH',

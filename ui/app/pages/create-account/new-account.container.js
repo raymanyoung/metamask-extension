@@ -3,7 +3,7 @@ import actions from '../../store/actions'
 import NewAccountCreateForm from './new-account.component'
 
 const mapStateToProps = state => {
-  const { metamask: { network, selectedAddress, identities = {} } } = state
+  const { iTrust: { network, selectedAddress, identities = {} } } = state
   const numberOfExistingAccounts = Object.keys(identities).length
   const newAccountNumber = numberOfExistingAccounts + 1
 

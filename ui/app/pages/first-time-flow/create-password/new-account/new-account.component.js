@@ -200,7 +200,7 @@ export default class NewAccount extends PureComponent {
             </div>
             <span className="first-time-flow__checkbox-label">
               I have read and agree to the <a
-                href="https://metamask.io/terms.html"
+                href="https://itrustchain.com/terms.html"
                 target="_blank"
                 rel="noopener noreferrer"
               >

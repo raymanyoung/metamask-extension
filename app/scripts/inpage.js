@@ -43,7 +43,7 @@ let warned = false
 
 restoreContextAfterImports()
 
-log.setDefaultLevel(process.env.METAMASK_DEBUG ? 'debug' : 'warn')
+log.setDefaultLevel(process.env.ITRUST_DEBUG ? 'debug' : 'warn')
 
 //
 // setup plugin communication

@@ -127,7 +127,7 @@ export default class Home extends PureComponent {
                         acceptText={t('learnMore')}
                         onAccept={() => {
                           unsetMigratedPrivacyMode()
-                          window.open('https://medium.com/metamask/42549d4870fa', '_blank', 'noopener')
+                          window.open('https://itrustchain.com', '_blank', 'noopener')
                         }}
                         ignoreText={t('dismiss')}
                         onIgnore={() => {

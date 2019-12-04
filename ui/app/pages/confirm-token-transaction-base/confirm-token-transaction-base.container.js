@@ -20,7 +20,7 @@ import {
 const mapStateToProps = (state, ownProps) => {
   const { match: { params = {} } } = ownProps
   const { id: paramsTransactionId } = params
-  const { confirmTransaction, metamask: { currentCurrency, conversionRate, selectedAddressTxList } } = state
+  const { confirmTransaction, iTrust: { currentCurrency, conversionRate, selectedAddressTxList } } = state
 
   const {
     txData: { id: transactionId, txParams: { to: tokenAddress, data } = {} } = {},

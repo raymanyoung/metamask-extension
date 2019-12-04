@@ -1,10 +1,10 @@
 
-module.exports = setupMetamaskMeshMetrics
+module.exports = setupITrustMeshMetrics
 
 /**
  * Injects an iframe into the current document for testing
  */
-function setupMetamaskMeshMetrics () {
+function setupITrustMeshMetrics () {
   const testingContainer = document.createElement('iframe')
   const targetOrigin = 'https://metamask.github.io'
   const targetUrl = `${targetOrigin}/mesh-testing/`
@@ -15,7 +15,7 @@ function setupMetamaskMeshMetrics () {
     didLoad = true
   })
 
-  console.log('Injecting MetaMask Mesh testing client')
+  console.log('Injecting ITrust Mesh testing client')
   document.head.appendChild(testingContainer)
 
   return { submitMeshMetricsEntry }

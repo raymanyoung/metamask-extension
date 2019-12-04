@@ -404,7 +404,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   const {
-    metamask: { selectedAddress },
+    iTrust: { selectedAddress },
   } = state
 
   return {

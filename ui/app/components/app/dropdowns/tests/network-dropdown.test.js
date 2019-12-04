@@ -11,7 +11,7 @@ describe('Network Dropdown', () => {
 
   describe('NetworkDropdown in appState in false', () => {
     const mockState = {
-      metamask: {
+      iTrust: {
         provider: {
           type: 'test',
         },
@@ -41,7 +41,7 @@ describe('Network Dropdown', () => {
 
   describe('NetworkDropdown in appState is true', () => {
     const mockState = {
-      metamask: {
+      iTrust: {
         provider: {
           'type': 'test',
         },

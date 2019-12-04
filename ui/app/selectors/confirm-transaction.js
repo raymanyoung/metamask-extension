@@ -13,11 +13,11 @@ import {
   sumHexes,
 } from '../helpers/utils/transactions.util'
 
-const unapprovedTxsSelector = state => state.metamask.unapprovedTxs
-const unapprovedMsgsSelector = state => state.metamask.unapprovedMsgs
-const unapprovedPersonalMsgsSelector = state => state.metamask.unapprovedPersonalMsgs
-const unapprovedTypedMessagesSelector = state => state.metamask.unapprovedTypedMessages
-const networkSelector = state => state.metamask.network
+const unapprovedTxsSelector = state => state.iTrust.unapprovedTxs
+const unapprovedMsgsSelector = state => state.iTrust.unapprovedMsgs
+const unapprovedPersonalMsgsSelector = state => state.iTrust.unapprovedPersonalMsgs
+const unapprovedTypedMessagesSelector = state => state.iTrust.unapprovedTypedMessages
+const networkSelector = state => state.iTrust.network
 
 export const unconfirmedTransactionsListSelector = createSelector(
   unapprovedTxsSelector,
@@ -54,10 +54,10 @@ export const unconfirmedTransactionsHashSelector = createSelector(
     network
   ) => {
     const filteredUnapprovedTxs = Object.keys(unapprovedTxs).reduce((acc, address) => {
-      const { metamaskNetworkId } = unapprovedTxs[address]
+      const { iTrustNetworkId } = unapprovedTxs[address]
       const transactions = { ...acc }
 
-      if (metamaskNetworkId === network) {
+      if (iTrustNetworkId === network) {
         transactions[address] = unapprovedTxs[address]
       }
 
@@ -73,9 +73,9 @@ export const unconfirmedTransactionsHashSelector = createSelector(
   }
 )
 
-const unapprovedMsgCountSelector = state => state.metamask.unapprovedMsgCount
-const unapprovedPersonalMsgCountSelector = state => state.metamask.unapprovedPersonalMsgCount
-const unapprovedTypedMessagesCountSelector = state => state.metamask.unapprovedTypedMessagesCount
+const unapprovedMsgCountSelector = state => state.iTrust.unapprovedMsgCount
+const unapprovedPersonalMsgCountSelector = state => state.iTrust.unapprovedPersonalMsgCount
+const unapprovedTypedMessagesCountSelector = state => state.iTrust.unapprovedTypedMessagesCount
 
 export const unconfirmedTransactionsCountSelector = createSelector(
   unapprovedTxsSelector,
@@ -91,8 +91,8 @@ export const unconfirmedTransactionsCountSelector = createSelector(
     network
   ) => {
     const filteredUnapprovedTxIds = Object.keys(unapprovedTxs).filter(txId => {
-      const { metamaskNetworkId } = unapprovedTxs[txId]
-      return metamaskNetworkId === network
+      const { iTrustNetworkId } = unapprovedTxs[txId]
+      return iTrustNetworkId === network
     })
 
     return filteredUnapprovedTxIds.length + unapprovedTypedMessagesCount + unapprovedMsgCount +
@@ -101,15 +101,15 @@ export const unconfirmedTransactionsCountSelector = createSelector(
 )
 
 
-export const currentCurrencySelector = state => state.metamask.currentCurrency
-export const conversionRateSelector = state => state.metamask.conversionRate
-export const getNativeCurrency = state => state.metamask.nativeCurrency
+export const currentCurrencySelector = state => state.iTrust.currentCurrency
+export const conversionRateSelector = state => state.iTrust.conversionRate
+export const getNativeCurrency = state => state.iTrust.nativeCurrency
 
 export const txDataSelector = state => state.confirmTransaction.txData
 const tokenDataSelector = state => state.confirmTransaction.tokenData
 const tokenPropsSelector = state => state.confirmTransaction.tokenProps
 
-const contractExchangeRatesSelector = state => state.metamask.contractExchangeRates
+const contractExchangeRatesSelector = state => state.iTrust.contractExchangeRates
 
 const tokenDecimalsSelector = createSelector(
   tokenPropsSelector,

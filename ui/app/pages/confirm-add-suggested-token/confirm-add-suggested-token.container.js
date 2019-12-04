@@ -7,8 +7,8 @@ const extend = require('xtend')
 
 const { addToken, removeSuggestedTokens } = require('../../store/actions')
 
-const mapStateToProps = ({ metamask }) => {
-  const { pendingTokens, suggestedTokens } = metamask
+const mapStateToProps = ({ iTrust }) => {
+  const { pendingTokens, suggestedTokens } = iTrust
   const params = extend(pendingTokens, suggestedTokens)
 
   return {

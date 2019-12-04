@@ -3,7 +3,7 @@ import CurrencyDisplay from './currency-display.component'
 import { getValueFromWeiHex, formatCurrency } from '../../../helpers/utils/confirm-tx.util'
 
 const mapStateToProps = state => {
-  const { metamask: { nativeCurrency, currentCurrency, conversionRate } } = state
+  const { iTrust: { nativeCurrency, currentCurrency, conversionRate } } = state
 
   return {
     currentCurrency,

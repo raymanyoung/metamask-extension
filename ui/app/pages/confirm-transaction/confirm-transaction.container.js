@@ -21,7 +21,7 @@ import { unconfirmedTransactionsListSelector } from '../../selectors/confirm-tra
 
 const mapStateToProps = (state, ownProps) => {
   const {
-    metamask: {
+    iTrust: {
       send,
       unapprovedTxs,
       abTests: { fullScreenVsPopup },

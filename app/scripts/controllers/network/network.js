@@ -26,12 +26,12 @@ const {
 const INFURA_PROVIDER_TYPES = [ROPSTEN, RINKEBY, KOVAN, MAINNET, GOERLI, ITRUST]
 
 const env = process.env.METAMASK_ENV
-const METAMASK_DEBUG = process.env.METAMASK_DEBUG
+const ITRUST_DEBUG = process.env.ITRUST_DEBUG
 
 let defaultProviderConfigType
 if (process.env.IN_TEST === 'true') {
   defaultProviderConfigType = LOCALHOST
-} else if (METAMASK_DEBUG || env === 'test') {
+} else if (ITRUST_DEBUG || env === 'test') {
   defaultProviderConfigType = RINKEBY
 } else {
   defaultProviderConfigType = MAINNET

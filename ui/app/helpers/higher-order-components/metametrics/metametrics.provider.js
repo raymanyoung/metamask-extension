@@ -91,9 +91,9 @@ const mapStateToProps = state => {
     activeCurrency: getSelectedAsset(state),
     accountType: getAccountType(state),
     confirmTransactionOrigin: txData.origin,
-    metaMetricsId: state.metamask.metaMetricsId,
-    participateInMetaMetrics: state.metamask.participateInMetaMetrics,
-    metaMetricsSendCount: state.metamask.metaMetricsSendCount,
+    metaMetricsId: state.iTrust.metaMetricsId,
+    participateInMetaMetrics: state.iTrust.participateInMetaMetrics,
+    metaMetricsSendCount: state.iTrust.metaMetricsSendCount,
     numberOfTokens: getNumberOfTokens(state),
     numberOfAccounts: getNumberOfAccounts(state),
   }

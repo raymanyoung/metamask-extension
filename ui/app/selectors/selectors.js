@@ -61,7 +61,7 @@ const selectors = {
 module.exports = selectors
 
 function getNetworkIdentifier (state) {
-  const { metamask: { provider: { type, nickname, rpcTarget } } } = state
+  const { iTrust: { provider: { type, nickname, rpcTarget } } } = state
 
   return nickname || rpcTarget || type
 }
@@ -75,7 +75,7 @@ function getCurrentKeyring (state) {
 
   const simpleAddress = stripHexPrefix(identity.address).toLowerCase()
 
-  const keyring = state.metamask.keyrings.find((kr) => {
+  const keyring = state.iTrust.keyrings.find((kr) => {
     return kr.accounts.includes(simpleAddress) ||
       kr.accounts.includes(identity.address)
   })
@@ -104,34 +104,34 @@ function getSelectedAsset (state) {
 }
 
 function getCurrentNetworkId (state) {
-  return state.metamask.network
+  return state.iTrust.network
 }
 
 function getSelectedAddress (state) {
-  const selectedAddress = state.metamask.selectedAddress || Object.keys(getMetaMaskAccounts(state))[0]
+  const selectedAddress = state.iTrust.selectedAddress || Object.keys(getMetaMaskAccounts(state))[0]
 
   return selectedAddress
 }
 
 function getSelectedIdentity (state) {
   const selectedAddress = getSelectedAddress(state)
-  const identities = state.metamask.identities
+  const identities = state.iTrust.identities
 
   return identities[selectedAddress]
 }
 
 function getNumberOfAccounts (state) {
-  return Object.keys(state.metamask.accounts).length
+  return Object.keys(state.iTrust.accounts).length
 }
 
 function getNumberOfTokens (state) {
-  const tokens = state.metamask.tokens
+  const tokens = state.iTrust.tokens
   return tokens ? tokens.length : 0
 }
 
 function getMetaMaskAccounts (state) {
-  const currentAccounts = state.metamask.accounts
-  const cachedBalances = state.metamask.cachedBalances[state.metamask.network]
+  const currentAccounts = state.iTrust.accounts
+  const cachedBalances = state.iTrust.cachedBalances[state.iTrust.network]
   const selectedAccounts = {}
 
   Object.keys(currentAccounts).forEach(accountID => {
@@ -149,14 +149,14 @@ function getMetaMaskAccounts (state) {
 }
 
 function isBalanceCached (state) {
-  const selectedAccountBalance = state.metamask.accounts[getSelectedAddress(state)].balance
+  const selectedAccountBalance = state.iTrust.accounts[getSelectedAddress(state)].balance
   const cachedBalance = getSelectedAccountCachedBalance(state)
 
   return Boolean(!selectedAccountBalance && cachedBalance)
 }
 
 function getSelectedAccountCachedBalance (state) {
-  const cachedBalances = state.metamask.cachedBalances[state.metamask.network]
+  const cachedBalances = state.iTrust.cachedBalances[state.iTrust.network]
   const selectedAddress = getSelectedAddress(state)
 
   return cachedBalances && cachedBalances[selectedAddress]
@@ -170,48 +170,48 @@ function getSelectedAccount (state) {
 }
 
 function getSelectedToken (state) {
-  const tokens = state.metamask.tokens || []
-  const selectedTokenAddress = state.metamask.selectedTokenAddress
+  const tokens = state.iTrust.tokens || []
+  const selectedTokenAddress = state.iTrust.selectedTokenAddress
   const selectedToken = tokens.filter(({ address }) => address === selectedTokenAddress)[0]
-  const sendToken = state.metamask.send && state.metamask.send.token
+  const sendToken = state.iTrust.send && state.iTrust.send.token
 
   return selectedToken || sendToken || null
 }
 
 function getSelectedTokenExchangeRate (state) {
-  const contractExchangeRates = state.metamask.contractExchangeRates
+  const contractExchangeRates = state.iTrust.contractExchangeRates
   const selectedToken = getSelectedToken(state) || {}
   const { address } = selectedToken
   return contractExchangeRates[address] || 0
 }
 
 function getSelectedTokenAssetImage (state) {
-  const assetImages = state.metamask.assetImages || {}
+  const assetImages = state.iTrust.assetImages || {}
   const selectedToken = getSelectedToken(state) || {}
   const { address } = selectedToken
   return assetImages[address]
 }
 
 function getAssetImages (state) {
-  const assetImages = state.metamask.assetImages || {}
+  const assetImages = state.iTrust.assetImages || {}
   return assetImages
 }
 
 function getTokenExchangeRate (state, address) {
-  const contractExchangeRates = state.metamask.contractExchangeRates
+  const contractExchangeRates = state.iTrust.contractExchangeRates
   return contractExchangeRates[address] || 0
 }
 
 function conversionRateSelector (state) {
-  return state.metamask.conversionRate
+  return state.iTrust.conversionRate
 }
 
 function getAddressBook (state) {
-  const network = state.metamask.network
-  if (!state.metamask.addressBook[network]) {
+  const network = state.iTrust.network
+  if (!state.iTrust.addressBook[network]) {
     return []
   }
-  return Object.values(state.metamask.addressBook[network])
+  return Object.values(state.iTrust.addressBook[network])
 }
 
 function getAddressBookEntry (state, address) {
@@ -221,13 +221,13 @@ function getAddressBookEntry (state, address) {
 }
 
 function getAddressBookEntryName (state, address) {
-  const entry = getAddressBookEntry(state, address) || state.metamask.identities[address]
+  const entry = getAddressBookEntry(state, address) || state.iTrust.identities[address]
   return entry && entry.name !== '' ? entry.name : addressSlicer(address)
 }
 
 function accountsWithSendEtherInfoSelector (state) {
   const accounts = getMetaMaskAccounts(state)
-  const { identities } = state.metamask
+  const { identities } = state.iTrust
 
   const accountsWithSendEtherInfo = Object.entries(accounts).map(([key, account]) => {
     return Object.assign({}, account, identities[key])
@@ -252,27 +252,27 @@ function getGasIsLoading (state) {
 }
 
 function getForceGasMin (state) {
-  return state.metamask.send.forceGasMin
+  return state.iTrust.send.forceGasMin
 }
 
 function getSendFrom (state) {
-  return state.metamask.send.from
+  return state.iTrust.send.from
 }
 
 function getSendAmount (state) {
-  return state.metamask.send.amount
+  return state.iTrust.send.amount
 }
 
 function getSendMaxModeState (state) {
-  return state.metamask.send.maxModeOn
+  return state.iTrust.send.maxModeOn
 }
 
 function getCurrentCurrency (state) {
-  return state.metamask.currentCurrency
+  return state.iTrust.currentCurrency
 }
 
 function getNativeCurrency (state) {
-  return state.metamask.nativeCurrency
+  return state.iTrust.nativeCurrency
 }
 
 function getSelectedTokenToFiatRate (state) {
@@ -300,13 +300,13 @@ function getCurrentViewContext (state) {
   return currentView.context
 }
 
-function getTotalUnapprovedCount ({ metamask }) {
+function getTotalUnapprovedCount ({ iTrust }) {
   const {
     unapprovedTxs = {},
     unapprovedMsgCount,
     unapprovedPersonalMsgCount,
     unapprovedTypedMessagesCount,
-  } = metamask
+  } = iTrust
 
   return Object.keys(unapprovedTxs).length + unapprovedMsgCount + unapprovedPersonalMsgCount +
     unapprovedTypedMessagesCount
@@ -331,20 +331,20 @@ function isEthereumNetwork (state) {
   return [ KOVAN, MAINNET, RINKEBY, ROPSTEN, GOERLI, ITRUST].includes(networkType)
 }
 
-function preferencesSelector ({ metamask }) {
-  return metamask.preferences
+function preferencesSelector ({ iTrust }) {
+  return iTrust.preferences
 }
 
 function getAdvancedInlineGasShown (state) {
-  return Boolean(state.metamask.featureFlags.advancedInlineGas)
+  return Boolean(state.iTrust.featureFlags.advancedInlineGas)
 }
 
 function getUseNonceField (state) {
-  return Boolean(state.metamask.useNonceField)
+  return Boolean(state.iTrust.useNonceField)
 }
 
 function getCustomNonceValue (state) {
-  return String(state.metamask.customNonceValue)
+  return String(state.iTrust.customNonceValue)
 }
 
 function getMetaMetricState (state) {
@@ -352,15 +352,15 @@ function getMetaMetricState (state) {
     network: getCurrentNetworkId(state),
     activeCurrency: getSelectedAsset(state),
     accountType: getAccountType(state),
-    metaMetricsId: state.metamask.metaMetricsId,
+    metaMetricsId: state.iTrust.metaMetricsId,
     numberOfTokens: getNumberOfTokens(state),
     numberOfAccounts: getNumberOfAccounts(state),
-    participateInMetaMetrics: state.metamask.participateInMetaMetrics,
+    participateInMetaMetrics: state.iTrust.participateInMetaMetrics,
   }
 }
 
 function getRpcPrefsForCurrentProvider (state) {
-  const { frequentRpcListDetail, provider } = state.metamask
+  const { frequentRpcListDetail, provider } = state.iTrust
   const selectRpcInfo = frequentRpcListDetail.find(rpcInfo => rpcInfo.rpcUrl === provider.rpcTarget)
   const { rpcPrefs = {} } = selectRpcInfo || {}
   return rpcPrefs
@@ -372,11 +372,11 @@ function getKnownMethodData (state, data) {
   }
   const prefixedData = addHexPrefix(data)
   const fourBytePrefix = prefixedData.slice(0, 10)
-  const { knownMethodData } = state.metamask
+  const { knownMethodData } = state.iTrust
 
   return knownMethodData && knownMethodData[fourBytePrefix]
 }
 
 function getFeatureFlags (state) {
-  return state.metamask.featureFlags
+  return state.iTrust.featureFlags
 }

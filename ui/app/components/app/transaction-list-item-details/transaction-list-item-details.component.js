@@ -44,7 +44,7 @@ export default class TransactionListItemDetails extends PureComponent {
 
   handleEtherscanClick = () => {
     const { transactionGroup: { primaryTransaction }, rpcPrefs } = this.props
-    const { hash, metamaskNetworkId } = primaryTransaction
+    const { hash, iTrustNetworkId } = primaryTransaction
 
     this.context.metricsEvent({
       eventOpts: {
@@ -54,7 +54,7 @@ export default class TransactionListItemDetails extends PureComponent {
       },
     })
 
-    global.platform.openWindow({ url: getBlockExplorerUrlForTx(metamaskNetworkId, hash, rpcPrefs) })
+    global.platform.openWindow({ url: getBlockExplorerUrlForTx(iTrustNetworkId, hash, rpcPrefs) })
   }
 
   handleCancel = event => {

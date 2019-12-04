@@ -73,7 +73,7 @@ import { getMaxModeOn } from '../../../../pages/send/send-content/send-amount-ro
 import { calcMaxAmount } from '../../../../pages/send/send-content/send-amount-row/amount-max-button/amount-max-button.utils'
 
 const mapStateToProps = (state, ownProps) => {
-  const { selectedAddressTxList } = state.metamask
+  const { selectedAddressTxList } = state.iTrust
   const { modalState: { props: modalProps } = {} } = state.appState.modal || {}
   const { txData = {} } = modalProps || {}
   const { transaction = {} } = ownProps

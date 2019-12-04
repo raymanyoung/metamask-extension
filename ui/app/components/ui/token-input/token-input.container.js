@@ -3,7 +3,7 @@ import TokenInput from './token-input.component'
 import {getIsMainnet, getSelectedToken, getSelectedTokenExchangeRate, preferencesSelector} from '../../../selectors/selectors'
 
 const mapStateToProps = state => {
-  const { metamask: { currentCurrency } } = state
+  const { iTrust: { currentCurrency } } = state
   const { showFiatInTestnets } = preferencesSelector(state)
   const isMainnet = getIsMainnet(state)
 

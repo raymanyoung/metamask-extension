@@ -3,8 +3,8 @@ import AddToken from './add-token.component'
 
 const { setPendingTokens, clearPendingTokens } = require('../../store/actions')
 
-const mapStateToProps = ({ metamask }) => {
-  const { identities, tokens, pendingTokens } = metamask
+const mapStateToProps = ({ iTrust }) => {
+  const { identities, tokens, pendingTokens } = iTrust
   return {
     identities,
     tokens,

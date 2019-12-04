@@ -5,9 +5,9 @@ import { setSelectedToken } from '../../../../store/actions'
 
 function mapStateToProps (state) {
   return {
-    tokens: state.metamask.tokens,
-    selectedAddress: state.metamask.selectedAddress,
-    selectedTokenAddress: state.metamask.selectedTokenAddress,
+    tokens: state.iTrust.tokens,
+    selectedAddress: state.iTrust.selectedAddress,
+    selectedTokenAddress: state.iTrust.selectedTokenAddress,
     accounts: getMetaMaskAccounts(state),
   }
 }

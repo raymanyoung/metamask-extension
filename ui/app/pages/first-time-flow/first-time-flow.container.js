@@ -12,7 +12,7 @@ import {
 } from '../../helpers/constants/routes'
 
 const mapStateToProps = (state, ownProps) => {
-  const { metamask: { completedOnboarding, isInitialized, isUnlocked, seedPhraseBackedUp } } = state
+  const { iTrust: { completedOnboarding, isInitialized, isUnlocked, seedPhraseBackedUp } } = state
   const showingSeedPhraseBackupAfterOnboarding = Boolean(ownProps.location.pathname.match(INITIALIZE_BACKUP_SEED_PHRASE_ROUTE))
 
   return {

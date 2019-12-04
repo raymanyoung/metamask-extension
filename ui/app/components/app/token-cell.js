@@ -13,12 +13,12 @@ const TokenMenuDropdown = require('./dropdowns/token-menu-dropdown.js')
 
 function mapStateToProps (state) {
   return {
-    network: state.metamask.network,
-    currentCurrency: state.metamask.currentCurrency,
-    selectedTokenAddress: state.metamask.selectedTokenAddress,
+    network: state.iTrust.network,
+    currentCurrency: state.iTrust.currentCurrency,
+    selectedTokenAddress: state.iTrust.selectedTokenAddress,
     userAddress: selectors.getSelectedAddress(state),
-    contractExchangeRates: state.metamask.contractExchangeRates,
-    conversionRate: state.metamask.conversionRate,
+    contractExchangeRates: state.iTrust.contractExchangeRates,
+    conversionRate: state.iTrust.conversionRate,
     sidebarOpen: state.appState.sidebar.isOpen,
   }
 }

@@ -1,5 +1,5 @@
 const Sentry = require('@sentry/browser')
-const METAMASK_DEBUG = process.env.METAMASK_DEBUG
+const ITRUST_DEBUG = process.env.ITRUST_DEBUG
 const extractEthjsErrorMessage = require('./extractEthjsErrorMessage')
 const SENTRY_DSN_PROD = 'https://3567c198f8a8412082d32655da2961d0@sentry.io/273505'
 const SENTRY_DSN_DEV = 'https://f59f3dd640d2429d9d0e2445a87ea8e1@sentry.io/273496'
@@ -13,7 +13,7 @@ function setupSentry (opts) {
   // detect brave
   const isBrave = Boolean(window.chrome.ipcRenderer)
 
-  if (METAMASK_DEBUG) {
+  if (ITRUST_DEBUG) {
     console.log('Setting up Sentry Remote Error Reporting: SENTRY_DSN_DEV')
     sentryTarget = SENTRY_DSN_DEV
   } else {
@@ -23,7 +23,7 @@ function setupSentry (opts) {
 
   Sentry.init({
     dsn: sentryTarget,
-    debug: METAMASK_DEBUG,
+    debug: ITRUST_DEBUG,
     release,
     beforeSend: (report) => rewriteReport(report),
   })

@@ -34,7 +34,7 @@ class ThreeBoxController {
         const accounts = await this.keyringController.getAccounts()
 
         if (isUnlocked && accounts[0]) {
-          const appKeyAddress = await this.keyringController.getAppKeyAddress(accounts[0], 'wallet://3box.metamask.io')
+          const appKeyAddress = await this.keyringController.getAppKeyAddress(accounts[0], 'wallet://3box.iTrust.io')
           return [appKeyAddress]
         } else {
           return []
@@ -43,7 +43,7 @@ class ThreeBoxController {
       processPersonalMessage: async (msgParams) => {
         const accounts = await this.keyringController.getAccounts()
         return keyringController.signPersonalMessage({ ...msgParams, from: accounts[0] }, {
-          withAppKeyOrigin: 'wallet://3box.metamask.io',
+          withAppKeyOrigin: 'wallet://3box.iTrust.io',
         })
       },
     })
@@ -113,11 +113,11 @@ class ThreeBoxController {
 
   async new3Box () {
     const accounts = await this.keyringController.getAccounts()
-    this.address = await this.keyringController.getAppKeyAddress(accounts[0], 'wallet://3box.metamask.io')
+    this.address = await this.keyringController.getAppKeyAddress(accounts[0], 'wallet://3box.iTrust.io')
     let backupExists
     try {
       const threeBoxConfig = await Box.getConfig(this.address)
-      backupExists = threeBoxConfig.spaces && threeBoxConfig.spaces.metamask
+      backupExists = threeBoxConfig.spaces && threeBoxConfig.spaces.iTrust
     } catch (e) {
       if (e.message.match(/^Error: Invalid response \(404\)/)) {
         backupExists = false

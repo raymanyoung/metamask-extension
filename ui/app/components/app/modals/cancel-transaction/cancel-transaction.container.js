@@ -8,9 +8,9 @@ import { showModal, createCancelTransaction } from '../../../../store/actions'
 import { getHexGasTotal } from '../../../../helpers/utils/confirm-tx.util'
 
 const mapStateToProps = (state, ownProps) => {
-  const { metamask } = state
+  const { iTrust } = state
   const { transactionId, originalGasPrice } = ownProps
-  const { selectedAddressTxList } = metamask
+  const { selectedAddressTxList } = iTrust
   const transaction = selectedAddressTxList.find(({ id }) => id === transactionId)
   const transactionStatus = transaction ? transaction.status : ''
 

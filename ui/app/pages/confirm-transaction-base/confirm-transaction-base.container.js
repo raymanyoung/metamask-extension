@@ -50,7 +50,7 @@ const mapStateToProps = (state, ownProps) => {
   const { id: paramsTransactionId } = params
   const { showFiatInTestnets } = preferencesSelector(state)
   const isMainnet = getIsMainnet(state)
-  const { confirmTransaction, metamask } = state
+  const { confirmTransaction, iTrust } = state
   const {
     ensResolutionsByAddress,
     conversionRate,
@@ -64,7 +64,7 @@ const mapStateToProps = (state, ownProps) => {
     unapprovedTxs,
     metaMetricsSendCount,
     nextNonce,
-  } = metamask
+  } = iTrust
   const {
     tokenData,
     txData,
@@ -119,7 +119,7 @@ const mapStateToProps = (state, ownProps) => {
   }
 
   const currentNetworkUnapprovedTxs = R.filter(
-    ({ metamaskNetworkId }) => metamaskNetworkId === network,
+    ({ iTrustNetworkId }) => iTrustNetworkId === network,
     unapprovedTxs,
   )
   const unapprovedTxCount = valuesFor(currentNetworkUnapprovedTxs).length

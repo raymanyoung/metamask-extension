@@ -19,7 +19,7 @@ export default class UnlockPage extends Component {
     onImport: PropTypes.func,
     onRestore: PropTypes.func,
     onSubmit: PropTypes.func,
-    forceUpdateMetamaskState: PropTypes.func,
+    forceupdateITrustState: PropTypes.func,
     showOptInModal: PropTypes.func,
   }
 
@@ -48,7 +48,7 @@ export default class UnlockPage extends Component {
     event.stopPropagation()
 
     const { password } = this.state
-    const { onSubmit, forceUpdateMetamaskState, showOptInModal } = this.props
+    const { onSubmit, forceupdateITrustState, showOptInModal } = this.props
 
     if (password === '' || this.submitting) {
       return
@@ -59,7 +59,7 @@ export default class UnlockPage extends Component {
 
     try {
       await onSubmit(password)
-      const newState = await forceUpdateMetamaskState()
+      const newState = await forceupdateITrustState()
       this.context.metricsEvent({
         eventOpts: {
           category: 'Navigation',
@@ -74,7 +74,7 @@ export default class UnlockPage extends Component {
       }
     } catch ({ message }) {
       if (message === 'Incorrect password') {
-        const newState = await forceUpdateMetamaskState()
+        const newState = await forceupdateITrustState()
         this.context.metricsEvent({
           eventOpts: {
             category: 'Navigation',

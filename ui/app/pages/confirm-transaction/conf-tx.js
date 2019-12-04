@@ -20,30 +20,30 @@ module.exports = compose(
 )(ConfirmTxScreen)
 
 function mapStateToProps (state) {
-  const { metamask } = state
+  const { iTrust } = state
   const {
     unapprovedMsgCount,
     unapprovedPersonalMsgCount,
     unapprovedTypedMessagesCount,
-  } = metamask
+  } = iTrust
 
   return {
-    identities: state.metamask.identities,
-    unapprovedTxs: state.metamask.unapprovedTxs,
-    unapprovedMsgs: state.metamask.unapprovedMsgs,
-    unapprovedPersonalMsgs: state.metamask.unapprovedPersonalMsgs,
-    unapprovedTypedMessages: state.metamask.unapprovedTypedMessages,
+    identities: state.iTrust.identities,
+    unapprovedTxs: state.iTrust.unapprovedTxs,
+    unapprovedMsgs: state.iTrust.unapprovedMsgs,
+    unapprovedPersonalMsgs: state.iTrust.unapprovedPersonalMsgs,
+    unapprovedTypedMessages: state.iTrust.unapprovedTypedMessages,
     index: state.appState.currentView.context,
     warning: state.appState.warning,
-    network: state.metamask.network,
-    provider: state.metamask.provider,
-    currentCurrency: state.metamask.currentCurrency,
-    blockGasLimit: state.metamask.currentBlockGasLimit,
+    network: state.iTrust.network,
+    provider: state.iTrust.provider,
+    currentCurrency: state.iTrust.currentCurrency,
+    blockGasLimit: state.iTrust.currentBlockGasLimit,
     unapprovedMsgCount,
     unapprovedPersonalMsgCount,
     unapprovedTypedMessagesCount,
-    send: state.metamask.send,
-    selectedAddressTxList: state.metamask.selectedAddressTxList,
+    send: state.iTrust.send,
+    selectedAddressTxList: state.iTrust.selectedAddressTxList,
   }
 }
 
@@ -182,7 +182,7 @@ ConfirmTxScreen.prototype.render = function () {
 ConfirmTxScreen.prototype.signMessage = function (msgData, event) {
   log.info('conf-tx.js: signing message')
   var params = msgData.msgParams
-  params.metamaskId = msgData.id
+  params.iTrustId = msgData.id
   this.stopPropagation(event)
   return this.props.dispatch(actions.signMsg(params))
 }
@@ -196,7 +196,7 @@ ConfirmTxScreen.prototype.stopPropagation = function (event) {
 ConfirmTxScreen.prototype.signPersonalMessage = function (msgData, event) {
   log.info('conf-tx.js: signing personal message')
   var params = msgData.msgParams
-  params.metamaskId = msgData.id
+  params.iTrustId = msgData.id
   this.stopPropagation(event)
   return this.props.dispatch(actions.signPersonalMsg(params))
 }
@@ -204,7 +204,7 @@ ConfirmTxScreen.prototype.signPersonalMessage = function (msgData, event) {
 ConfirmTxScreen.prototype.signTypedMessage = function (msgData, event) {
   log.info('conf-tx.js: signing typed message')
   var params = msgData.msgParams
-  params.metamaskId = msgData.id
+  params.iTrustId = msgData.id
   this.stopPropagation(event)
   return this.props.dispatch(actions.signTypedMsg(params))
 }

@@ -5,7 +5,7 @@ const defaultState = {
   appState: {
     warning: null,
   },
-  metamask: {
+  iTrust: {
     featureFlags: {
       sendHexData: false,
       advancedInlineGas: false,
